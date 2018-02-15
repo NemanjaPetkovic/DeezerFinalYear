@@ -1,0 +1,13 @@
+.trackRecText{
+/*
+	text-align: center;
+	padding:5px;*/
+
+}
+.user_img_tracks{
+
+	display: block /*for the img inside your div */  
+margin-left: auto 
+margin-right: auto
+}
+

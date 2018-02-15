@@ -1,0 +1,931 @@
+{% extends "index.html"%}
+{% block body %}
+<script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+<div id="dz-root"></div>
+    <link rel="stylesheet" href="https://www.koolchart.com/demo/KoolChart/Assets/Css/KoolChart.css"/>
+    <link rel="stylesheet" href="https://www.koolchart.com/demo/Samples/Web/sample.css"/>
+    <script src="https://www.koolchart.com/demo/LicenseKey/KoolChartLicense.js"></script>
+    <script src="https://www.koolchart.com/demo/KoolChart/JS/KoolIntegration.js"></script>
+
+<script>
+
+
+DZ.init({
+      appId  : '253822',
+      channelUrl : 'http://127.0.0.1:5000',
+    });
+
+      function check(){ 
+        DZ.getLoginStatus(function(response){
+            console.log(response);
+        })}
+
+        function logout(){
+    DZ.logout();
+        }
+
+        window.onload = function(){
+  document.forms['d3Form'].submit();
+}
+
+
+</script>
+
+<nav class="navbar navbar-inverse" style="background-color: #22222B;">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#" style ="font-size: 15px; font-family: 'Verdana'; color: white; text-align: center; line-height: 40px; vertical-align: middle;">About</a></li>
+      <li><a href="#">    </a></li>
+      <li><a href="http://www.deezer.com/en/" style ="font-size: 15px; font-family: 'Verdana'; text-align: center; line-height: 40px; vertical-align: middle; color: white;">Deezer.com</a></li>
+      <li><a href="#">    </a></li>
+      <li><a onclick="logout()" href="#" data-target="#myModal" data-toggle="modal" style ="font-size: 15px; font-family: 'Verdana'; line-height: 40px; color: white;">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+    <style type="text/css"> /*hide the scroll bar*/
+      ::-webkit-scrollbar { 
+      display: none; 
+}
+    </style>
+
+<div class="col-sm-2" style="background-color: #22222B; margin-top: -120px; height: 200%; overflow: hidden; position: fixed;">
+    <br><br>
+      <div style="padding-bottom: 80px;">
+        <a class="navbar-brand" href="/"> <img src="static/img/DeezerText.png" style="height:40px; width:200px;"></a>
+      </div>
+      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 10px; padding-bottom: 10px; background-color: #15151D;">
+        <li style="margin-left: 30px;"><a style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left:28px;">HOME<i class="glyphicon glyphicon-home navbar-left"></i></a></li>
+        <li style="margin-left: 30px; padding-top: 20px; padding-bottom: 10px;"> <a href="#worldMap" style ="font-size: 12px; margin-left: 30px; font-family: 'Verdana'; color: #AFAFAF"><i class="glyphicon glyphicon-user navbar-left"></i>World Map</a></li>
+        <li style="margin-left: 30px; padding-top: 10px; padding-bottom: 10px;"><a href="#musicCharts" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"> <i class="glyphicon glyphicon-music navbar-left"></i>Charts</a></li>
+        <li style="margin-left: 30px; padding-top: 10px; padding-bottom: 10px;"><a href="#topCharts" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"> <i class="glyphicon glyphicon-list-alt navbar-left"></i>Top tracks by country</a></li>
+      </div>
+      <br><br>
+      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 10px; padding-bottom: 10px;">
+        <li style="margin-left: 30px;"><a href="" style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left: 28px;"><i class="glyphicon glyphicon-th-list navbar-left"></i> MY RECOMMENDATIONS </a>
+      </div>
+      <br><br>
+      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 10px; padding-bottom: 10px;">
+        <li style="margin-left: 30px;"><a href="" style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left: 28px;">MUSIC DATA<i class="glyphicon glyphicon-stats navbar-left"></i></a></li>
+      </div>
+      <br><br>
+      <div id =playerData>
+<!--         <p style="font-size: 16px; color: white; font-family: 'Verdana'; text-align: center;"> You might like </p>
+ -->        
+      </div>
+  </div>
+ <!--  ***************************************************************** -->
+  <div class="col-sm-8 col-sm-offset-3" style="overflow: scroll;">
+    
+  <div class="container" id= "worldMap" style="width: 100%; height: 450px; background-color: white; border-radius: 20px; border: 1px solid #AFAFAF; padding-bottom: 60px;">
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-md-12"> 
+        <p style = "text-align:left; font-size: 18px"> <b>User Profile </b></p>
+        </div>
+      </div>
+    <div id="map" style="width: 100%"></div>
+</div>
+<br><br>
+    
+    <script>
+
+
+  function httpGet(url)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", url, false ); 
+    xmlHttp.send( null );
+    return JSON.parse(xmlHttp.response);
+}
+urlgenre = 'https://api.deezer.com/genre/0/artists';
+
+var genreresponse = httpGet(urlgenre)
+
+ function makeData(){
+  var i, n,
+   chartData = [],
+   data = [genreresponse['data'][0]['name'],genreresponse['data'][1]['name'],genreresponse['data'][2]['name'],genreresponse['data'][3]['name'],genreresponse['data'][4]['name'],genreresponse['data'][5]['name'],genreresponse['data'][6]['name'],genreresponse['data'][7]['name'],genreresponse['data'][8]['name'],genreresponse['data'][9]['name'],genreresponse['data'][10]['name'],genreresponse['data'][11]['name'],genreresponse['data'][12]['name'],genreresponse['data'][13]['name'],genreresponse['data'][14]['name'],genreresponse['data'][15]['name'],genreresponse['data'][16]['name'],genreresponse['data'][17]['name'],genreresponse['data'][18]['name'],genreresponse['data'][19]['name'],genreresponse['data'][20]['name'],genreresponse['data'][21]['name'],genreresponse['data'][22]['name'],genreresponse['data'][23]['name'],genreresponse['data'][24]['name'],genreresponse['data'][25]['name'],genreresponse['data'][26]['name'],genreresponse['data'][27]['name'],genreresponse['data'][28]['name'],genreresponse['data'][29]['name']];
+
+  for(i = 0, n = data.length ; i < n ; i += 1){
+   chartData.push({
+    text : data[i],
+    weight : Math.floor(Math.random(10) * 100)
+   });
+  }
+  return chartData;
+ };
+
+
+
+
+
+      
+
+    var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4.2,
+          gestureHandling: "cooperative",
+          center: new google.maps.LatLng(46.7985624, 8.2319736),
+          disableDefaultUI: true,
+          vAxis: {
+          minValue: 0,
+          gridlines: {
+            color:'transparent'
+          }
+        },
+          styles:[
+  {
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#ebe3cd"
+      }
+    ]
+  },
+  {
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#523735"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#f5f1e6"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.country",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#c0c0c0"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.country",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#24242c"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#dcd2be"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#ae9e90"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.locality",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.neighborhood",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.province",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "simplified"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "visibility": "simplified"
+      },
+      {
+        "weight": 1
+      }
+    ]
+  },
+  {
+    "featureType": "landscape",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#93817c"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#a5b076"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#447530"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#f5f1e6"
+      },
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#fdfcf8"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#f8c967"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#e9bc62"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#e98d58"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#db8555"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#806b63"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#8f7d77"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#ebe3cd"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.station",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "stylers": [
+      {
+        "color": "#110f0f"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#24242c"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#110f0f"
+      },
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#92998d"
+      }
+    ]
+  }
+]
+
+        });
+
+          let  countries =["AUSL","AUS", "AUS","ARG","BEL","BRA","CAN","CHI","COL","COS","CRO","DEN","ECU","EST","FIN","FRA","GER","HUN","IND","ITA","LAT","LIT","MEX","NET","NOR","POL","ROM","RUS","SER","SIN","SLO","SOU","SPA","SWE","SWI","TUR","UK","USA"];
+
+
+  let countriesLength = countries.length;
+      
+        
+        AUSL = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/australia.png',position: {lat: -24.7761085,lng: 134.75513}});
+        AUS = new google.maps.Marker({map: map, draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/austria.png',position: {lat: 47.2000338,lng: 13.199959}});
+        ARG = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/argentina.png',position: {lat: -34.9964962,  lng: -64.9672816}});
+        BEL = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/belgium.png',position: {lat: 50.6407351, lng:  4.66696}});
+        BRA = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/brazil.png',position: {lat: -10.3333332, lng: -53.1999999}});
+        CAN = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/canada.png',position: {lat: 61.0666922,  lng: -107.991707}});
+        CHI = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/chile.png',position: {lat: -31.7613364,  lng: -71.3187696}});
+        COL = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/british-columbia.png',position: {lat: 2.8894434,  lng: -73.7838919}});
+        COS = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/costa-rica.png',position: {lat: 10.2735633,  lng: -84.0739101}});
+        CZE = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/czech-republic.png',position: {lat: 49.8167003,  lng: 15.4749544  }});
+        CRO = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/croatia.png',position: {lat: 45.5643442,  lng: 17.0118954}});
+        DEN = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/denmark.png',position: {lat: 55.670249, lng: 10.3333283}});
+        ECU = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/ecuador.png',position: {lat: -1.3397667, lng: -79.3666964}});
+        EST = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/estonia.png',position: {lat: 58.7523778, lng: 25.3319078 }});
+        FIN = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/finland.png',position: {lat: 63.2467777,  lng: 25.9209164}});
+        FRA = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/france.png',position: {lat: 46.603354,  lng: 1.8883335}});
+        GER = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/germany.png',position: {lat: 51.0834196,  lng: 10.4234469}});
+        HUN = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/hungary.png',position: {lat: 47.1817585,  lng: 19.5060937}});
+        IND = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/indonesia.png',position: {lat: -4.7993356,   lng: 114.5632032}});
+        ITA = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/italy.png',position: {lat: 42.6384261, lng: 12.674297}});
+        LAT = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/latvia.png',position: {lat: 56.8406494,  lng: 24.7537645}});
+        LIT = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/lithuania.png',position: {lat: 55.3500003,  lng: 23.7499997}});
+        MEX = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/mexico.png',position: {lat: 22.5000485,  lng: -100.0000374}});
+        NET = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/netherlands.png',position: {lat: 52.2379891,  lng: 5.5346074}});
+        NOR = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/norway.png',position: {lat: 60.5000209, lng: 9.0999715}});
+        POL = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/republic-of-poland.png',position: {lat: 52.0977181,  lng: 19.0258159}});
+        ROM = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/romania.png',position: {lat: 45.9852129,  lng: 24.6859225}});
+        RUS = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/russia.png',position: {lat: 64.6863136,  lng: 97.7453061}});
+        SER = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/serbia.png',position: {lat: 44.1534121,  lng: 20.55144}});
+        SIN = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/singapore.png',position: {lat: 1.357107,  lng: 103.8194992}});
+        SLO = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/slovakia.png',position: {lat: 48.7411522,   lng: 19.4528646}});
+        SOU = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/south-africa.png',position: {lat: -28.8166235,   lng: 24.991639}});
+        SPA = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/spain.png',position: {lat: 40.0028028, lng: -4.0031039}});
+        SWE = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/sweden.png',position: {lat: 59.6749712,   lng: 14.5208584}});
+        SWI = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/switzerland.png',position: {lat: 46.7985624,   lng: 8.2319736}});
+        TUR = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/turkey.png',position: {lat: 38.9597594,   lng: 34.9249653}});
+        UK = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/united-kingdom.png',position: {lat: 54.7023545,   lng: -3.2765752}});
+        USA = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/united-states.png',position: {lat: 39.7837304,   lng: -100.4458824}});
+        IRL = new google.maps.Marker({ map: map,draggable: false,animation: google.maps.Animation.DROP, icon: 'static/img/ireland.png',position: {lat: 52.865196,    lng: -7.9794599}});
+
+
+      function unclick(country){
+          for(var i=0;i<countriesLength;i++)
+          {
+            if (countries[i]!=country){
+                 let country = window[countries[i]];
+                 country.setAnimation(null);
+            }
+          }
+      }
+
+  var urlAUSL ='https://api.deezer.com/playlist/1313615765/tracks?limit=5';//fix!!
+  var urlAUS = 'https://api.deezer.com/playlist/1313615765/tracks?limit=5';
+  var urlUSA = 'https://api.deezer.com/playlist/1313621735/tracks?limit=5';
+  var urlIRL = 'https://api.deezer.com/playlist/1313619455/tracks?limit=5'
+  var urlARG = 'https://api.deezer.com/playlist/1279119721/tracks?limit=5';
+  var urlBEL = 'https://api.deezer.com/playlist/1266968331/tracks?limit=5';
+  var urlBRA = 'https://api.deezer.com/playlist/1111141961/tracks?limit=5';
+  var urlCAN = 'https://api.deezer.com/playlist/1652248171/tracks?limit=5';
+  var urlCHI = 'https://api.deezer.com/playlist/1279119121/tracks?limit=5';
+  var urlCOL = 'https://api.deezer.com/playlist/1116188451/tracks?limit=5';
+  var urlCOS = 'https://api.deezer.com/playlist/1313618455/tracks?limit=5';
+  var urlCZE = 'https://api.deezer.com/playlist/1266969571/tracks?limit=5';
+  var urlCRO = 'https://api.deezer.com/playlist/1266971131/tracks?limit=5';
+  var urlDEN = 'https://api.deezer.com/playlist/1313618905/tracks?limit=5';
+  var urlECU = 'https://api.deezer.com/playlist/1362501235/tracks?limit=5';
+  var urlEST = 'https://api.deezer.com/playlist/1221037201/tracks?limit=5';
+  var urlFIN = 'https://api.deezer.com/playlist/1221034071/tracks?limit=5';
+  var urlFRA = 'https://api.deezer.com/playlist/1109890291/tracks?limit=5';
+  var urlGER = 'https://api.deezer.com/playlist/1111143121/tracks?limit=5';
+  var urlHUN = 'https://api.deezer.com/playlist/1362506695/tracks?limit=5';
+  var urlIND = 'https://api.deezer.com/playlist/1116188761/tracks?limit=5';
+  var urlITA = 'https://api.deezer.com/playlist/1116187241/tracks?limit=5';
+  var urlLAT = 'https://api.deezer.com/playlist/1221037511/tracks?limit=5';
+  var urlLIT = 'https://api.deezer.com/playlist/1221037371/tracks?limit=5';
+  var urlMEX = 'https://api.deezer.com/playlist/1111142361/tracks?limit=5';
+  var urlNET = 'https://api.deezer.com/playlist/1266971851/tracks?limit=5';
+  var urlNOR = 'https://api.deezer.com/playlist/1313619885/tracks?limit=5';
+  var urlPOL = 'https://api.deezer.com/playlist/1266972311/tracks?limit=5';
+  var urlRUS = 'https://api.deezer.com/playlist/1116189381/tracks?limit=5';
+  var urlROM = 'https://api.deezer.com/playlist/1279117071/tracks?limit=5';
+  var urlSER = 'https://api.deezer.com/playlist/1266972981/tracks?limit=5';
+  var urlSIN = 'https://api.deezer.com/playlist/1313620765/tracks?limit=5';
+  var urlSLO = 'https://api.deezer.com/playlist/1266973701/tracks?limit=5';
+  var urlSOU = 'https://api.deezer.com/playlist/1362528775/tracks?limit=5';
+  var urlSPA = 'https://api.deezer.com/playlist/1116190041/tracks?limit=5';
+  var urlSWE = 'https://api.deezer.com/playlist/1313620305/tracks?limit=5';
+  var urlSWI = 'https://api.deezer.com/playlist/1313617925/tracks?limit=5';
+  var urlTUR = 'https://api.deezer.com/playlist/1116189071/tracks?limit=5';
+  var urlUK = 'https://api.deezer.com/playlist/1111142221/tracks?limit=5';
+
+
+  function httpGet(url)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", url, false ); 
+    xmlHttp.send( null );
+    return JSON.parse(xmlHttp.response);
+}
+
+  var infowindow = new google.maps.InfoWindow({});
+
+
+   google.maps.event.addListener(AUSL, 'click', function() {
+                        var response = httpGet(urlAUSL);
+                        infowindow.setContent('<div style="font-size: 20px;"><p>Top tracks for Australia</p></div>'+ '<br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<br>'+'<br><p><b>No.2</b></p>'+response['data'][1]['title']+'<br>'+'<br><p><b>No.3</b></p>'+response['data'][2]['title']+'<br>'+'<br><p><b>No.4</b></p>'+response['data'][3]['title']+'<br>'+'<br><p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });
+   google.maps.event.addListener(AUS, 'click', function() {
+                        var response = httpGet(urlAUS)
+                        infowindow.setContent('<h3>Top tracks for Austria</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });
+   google.maps.event.addListener(USA, 'click', function() {
+                        var response = httpGet(urlUSA)
+                        infowindow.setContent('<h3>Top tracks for USA</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });
+   google.maps.event.addListener(IRL, 'click', function() {
+                        var response = httpGet(urlIRL)
+                        infowindow.setContent('<h3>Top tracks for Ireland</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });
+   google.maps.event.addListener(ARG, 'click', function() {
+                        var response = httpGet(urlARG)
+                        infowindow.setContent('<h3>Top tracks for Argentina</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      }); 
+   google.maps.event.addListener(BEL, 'click', function() {
+                        var response = httpGet(urlBEL)
+                        infowindow.setContent('<h3>Top tracks for Belgium</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(BRA, 'click', function() {
+                        var response = httpGet(urlBRA)
+                        infowindow.setContent('<h3>Top tracks for Brazil</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+
+   google.maps.event.addListener(CAN, 'click', function() {
+                        var response = httpGet(urlCAN)
+                        infowindow.setContent('<h3>Top tracks for Canada</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(CHI, 'click', function() {
+                        var response = httpGet(urlCHI)
+                        infowindow.setContent('<h3>Top tracks for Chile</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(COL, 'click', function() {
+                        var response = httpGet(urlCOL)
+                        infowindow.setContent('<h3>Top tracks for Columbia</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(COS, 'click', function() {
+                        var response = httpGet(urlCOS)
+                        infowindow.setContent('<h3>Top tracks for Costa Rica</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(CZE, 'click', function() {
+                        var response = httpGet(urlCZE)
+                        infowindow.setContent('<h3>Top tracks for Czech Republic</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(CRO, 'click', function() {
+                        var response = httpGet(urlCRO)
+                        infowindow.setContent('<h3>Top tracks for Croatia</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(DEN, 'click', function() {
+                        var response = httpGet(urlDEN)
+                        infowindow.setContent('<h3>Top tracks for Denmark</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(ECU, 'click', function() {
+                        var response = httpGet(urlECU)
+                        infowindow.setContent('<h3>Top tracks for Ecuador</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(EST, 'click', function() {
+                        var response = httpGet(urlEST)
+                        infowindow.setContent('<h3>Top tracks for Estonia</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(FIN, 'click', function() {
+                        var response = httpGet(urlFIN)
+                        infowindow.setContent('<h3>Top tracks for  Canada </h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(FRA, 'click', function() {
+                        var response = httpGet(urlFRA)
+                        infowindow.setContent('<h3>Top tracks for France</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(GER, 'click', function() {
+                        var response = httpGet(urlGER)
+                        infowindow.setContent('<h3>Top tracks for Germany</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(HUN, 'click', function() {
+                        var response = httpGet(urlHUN)
+                        infowindow.setContent('<h3>Top tracks for Hungary</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(IND, 'click', function() {
+                        var response = httpGet(urlIND)
+                        infowindow.setContent('<h3>Top tracks for Indonesia</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(ITA, 'click', function() {
+                        var response = httpGet(urlITA)
+                        infowindow.setContent('<h3>Top tracks for Italy</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(LAT, 'click', function() {
+                        var response = httpGet(urlLAT)
+                        infowindow.setContent('<h3>Top tracks for Latvia</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(LIT, 'click', function() {
+                        var response = httpGet(urlLIT)
+                        infowindow.setContent('<h3>Top tracks for Lithuania </h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(MEX, 'click', function() {
+                        var response = httpGet(urlMEX)
+                        infowindow.setContent('<h3>Top tracks for Mexico</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(NET, 'click', function() {
+                        var response = httpGet(urlNET)
+                        infowindow.setContent('<h3>Top tracks for Netherlands</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(NOR, 'click', function() {
+                        var response = httpGet(urlNOR)
+                        infowindow.setContent('<h3>Top tracks for Norway</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(POL, 'click', function() {
+                        var response = httpGet(urlPOL)
+                        infowindow.setContent('<h3>Top tracks for Poland</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(RUS, 'click', function() {
+                        var response = httpGet(urlRUS)
+                        infowindow.setContent('<h3>Top tracks for Russia</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(ROM, 'click', function() {
+                        var response = httpGet(urlROM)
+                        infowindow.setContent('<h3>Top tracks for Romania</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(SER, 'click', function() {
+                        var response = httpGet(urlSER)
+                        infowindow.setContent('<h3>Top tracks for Serbia</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(SIN, 'click', function() {
+                        var response = httpGet(urlSIN)
+                        infowindow.setContent('<h3>Top tracks for Singapore</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(SLO, 'click', function() {
+                        var response = httpGet(urlSLO)
+                        infowindow.setContent('<h3>Top tracks for Slovakia</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(SOU, 'click', function() {
+                        var response = httpGet(urlSOU)
+                        infowindow.setContent('<h3>Top tracks for South Africa</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(SPA, 'click', function() {
+                        var response = httpGet(urlSPA)
+                        infowindow.setContent('<h3>Top tracks for Spain</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(SWE, 'click', function() {
+                        var response = httpGet(urlSWE)
+                        infowindow.setContent('<h3>Top tracks for Sweden</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(SWI, 'click', function() {
+                        var response = httpGet(urlSWI)
+                        infowindow.setContent('<h3>Top tracks for Switzerland</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(TUR, 'click', function() {
+                        var response = httpGet(urlTUR)
+                        infowindow.setContent('<h3>Top tracks for Turkey</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+   google.maps.event.addListener(UK, 'click', function() {
+                        var response = httpGet(urlUK)
+                        infowindow.setContent('<h3>Top tracks for United Kingdom</h3> <br> <p><b>No.1</b></p>'+response['data'][0]['title']+'<p><b>No.2</b></p>'+response['data'][1]['title']+'<p><b>No.3</b></p>'+response['data'][2]['title']+'<p><b>No.4</b></p>'+response['data'][3]['title']+'<p><b>No.5</b></p>'+response['data'][4]['title']);
+                        infowindow.open(map, this);
+                      });  
+
+}
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrLX711kjpspjQ4dvU5Aj7PoATosHe5NQ&callback=initMap"></script>
+
+
+
+  <div class="container" id= "musicCharts" style="height:400px; width: 100%; background-color: white; border-radius: 20px; border: 1px solid #AFAFAF; padding-bottom: 10px;">
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-md-12"> 
+        <p style = "text-align:left; font-size: 18px"> <b>Charts </b></p>
+        </div>
+      </div>
+      <div class="col-sm-4" style ="background-color:white; height:300px;">
+        <p style = "text-align:center;"> Top tracks in the world </p>
+          <canvas id="myChart1"></canvas>
+
+      </div>
+      <div class="col-sm-4" style ="background-color:white; height:300px;">
+        <p style = "text-align:center;"> Top artists </p>
+          <div id="chartHolder" style="width:85%; height:85%; margin:-10px 35px;"></div>
+      </div>
+   
+    <div class="col-sm-4" style ="background-color:white; height:300px;">
+        <p style = "text-align:center;" > Top tracks in your country </p>
+          <canvas id="myChart2"></canvas>
+      </div>
+    </div>
+    <br><br>
+    <div class="container" id= "topCharts" style="width: 100%; background-color: white; border-radius: 20px; border: 1px solid #AFAFAF; padding-bottom: 10px;">
+      <div class="row" style="margin-top: 10px;">
+      <div class="col-md-12"> 
+        <p style = "text-align:left; font-size: 18px"> <b>Top tracks by country </b></p>
+        </div>
+      </div>
+      <div class="col-sm-7" style ="background-color:white; height:480px; ">
+        <p style = "text-align:center;">  </p>
+        <div class="container">
+          <div id="myChart3"></div>
+        </div>
+
+     
+      </div>
+      <div class="col-sm-5" style ="background-color:white; height:480px; background-color: #F4F4F4;">
+        <p style="font-size: 16px; margin: 40px 0px;">Select a country and enter a number less than 10 </p>
+            <form name="d3Form" action="javascript:checkButton()">
+
+
+    <select style="width: 45%; height: 35px; font-size: 18px; border-radius:5px;">
+      <option value="WORLD" name="topsongs" id="Worldwide"> Worldwide </option>
+      <option value="AUSL" name="topsongs" id="Australia"> Australia </option>
+      <option value="AUS" name="topsongs" id="Austria"> Austria </option>
+      <option value="ARG" name="topsongs" id="Argentina"> Argentina </option>
+      <option value="BEL" name="topsongs" id="Belgium"> Belgium </option>
+      <option value="BRA" name="topsongs" id="Brazil"> Brazil </option>
+      <option value="CAN" name="topsongs" id="Canada"> Canada </option>
+      <option value="CHI" name="topsongs" id="Chile"> Chile </option>
+      <option value="COL" name="topsongs" id="Columbia"> Columbia </option>
+      <option value="COS" name="topsongs" id="Costa Rica"> Costa Rica </option>
+      <option value="CZE" name="topsongs" id="Czech Republic"> Czech Republic </option>
+      <option value="CRO" name="topsongs" id="Croatia"> Croatia </option>
+      <option value="DEN" name="topsongs" id="Denmark"> Denmark </option>
+      <option value="ECU" name="topsongs" id="Ecuador"> Ecuador </option>
+      <option value="EST" name="topsongs" id="Estonia"> Estonia </option>
+      <option value="FIN" name="topsongs" id="Finland"> Finland </option>
+      <option value="FRA" name="topsongs" id="France"> France </option>
+      <option value="GER" name="topsongs" id="Germany"> Germany </option>
+      <option value="GUA" name="topsongs" id="Guatemala"> Guatemala </option>
+      <option value="HON" name="topsongs" id="Honduras"> Honduras </option>
+      <option value="HUN" name="topsongs" id="Hungary"> Hungary </option>
+      <option value="INA" name="topsongs" id="Indonesia"> Indonesia </option>
+      <option value="IRL" name="topsongs" id="Ireland"> Ireland </option>
+      <option value="ITA" name="topsongs" id="Italy"> Italy </option>
+      <option value="LAT" name="topsongs" id="Latvia"> Latvia </option>
+      <option value="LIT" name="topsongs" id="Lithuania"> Lithuania </option>
+      <option value="MEX" name="topsongs" id="Mexico"> Mexico </option>
+      <option value="NET" name="topsongs" id="Netherlands"> Netherlands </option>
+      <option value="NOR" name="topsongs" id="Norway"> Norway </option>
+      <option value="POL" name="topsongs" id="Poland"> Poland </option>
+      <option value="Rom" name="topsongs" id="Romania"> Romania </option>
+      <option value="RUS" name="topsongs" id="Russia"> Russia </option>
+      <option value="SER" name="topsongs" id="Serbia"> Serbia </option>
+      <option value="SIN" name="topsongs" id="Singapore"> Singapore </option>
+      <option value="SLO" name="topsongs" id="Slovakia"> Slovakia </option>
+      <option value="SOU" name="topsongs" id="South Africa"> South Africa </option>
+      <option value="SPA" name="topsongs" id="Spain"> Spain </option>
+      <option value="SWE" name="topsongs" id="Sweden"> Sweden </option>
+      <option value="SWI" name="topsongs" id="Switzerland"> Switzerland </option>
+      <option value="TUR" name="topsongs" id="Turkey"> Turkey </option>
+      <option value="UK" name="topsongs" id="United Kingdom"> United Kingdom </option>
+      <option value="USA" name="topsongs" id="USA"> USA </option>
+    </select>
+
+      <input style="width: 40%; margin-left: 50px; height: 35px; font-size: 18px; border-radius:5px;" type="number" id="topSongs" name ="topSongs" min="1" max="6" value= "6" >
+        <div id="pieJS" class="container" style ="background-color:white; width: 116%; margin-left: -100px;"> </div>
+    <br>
+      <button type="submit" id="btn-style" class="btn btn btn-block" name="btn-style">Submit button</button>
+    </form>
+  </div>
+
+          </div>
+        </div>
+  </div>
+</div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+<div id="pieJS" class="container">
+<script src="https://d3js.org/d3.v3.min.js"></script>
+    
+
+
+</div>
+
+  </div>
+</div>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Notice</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to Log out?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="javascript:window.location.href='/'" data-dismiss="modal">Log me out</button>
+        <button type="button" class="btn btn-default"  data-dismiss="modal">Dismiss</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+
+<style>
+
+
+body {
+
+/*  background-color: grey;
+*/}
+</style>
+	
+
+
+{% endblock %}
