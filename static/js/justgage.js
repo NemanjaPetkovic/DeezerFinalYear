@@ -148,7 +148,7 @@ JustGage = function(config) {
 
     // startAnimationTime : int
     // length of initial animation
-    startAnimationTime: kvLookup('startAnimationTime', config, dataset, 700),
+    startAnimationTime: kvLookup('startAnimationTime', config, dataset, 2000),
 
     // startAnimationType : string
     // type of initial animation (linear, >, <,  <>, bounce)
@@ -156,7 +156,7 @@ JustGage = function(config) {
 
     // refreshAnimationTime : int
     // length of refresh animation
-    refreshAnimationTime: kvLookup('refreshAnimationTime', config, dataset, 700),
+    refreshAnimationTime: kvLookup('refreshAnimationTime', config, dataset, 2000),
 
     // refreshAnimationType : string
     // type of refresh animation (linear, >, <,  <>, bounce)

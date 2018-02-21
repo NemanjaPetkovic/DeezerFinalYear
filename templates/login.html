@@ -1,8 +1,13 @@
 {% extends "index.html"%}
 {% block body %}
-
-<script src="https://e-cdns-files.dzcdn.net/js/min/dz.js"></script>
+<script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
 <div id="dz-root"></div>
+<script>
+            DZ.init({
+            appId  : '253822',
+            channelUrl : 'http://127.0.0.1:5000',
+        });
+</script>
 
 <style>
 body
@@ -245,10 +250,6 @@ form.login a:hover
 
 <script>
 
-    	DZ.init({
-      appId  : '253822',
-      channelUrl : 'http://deezerfinalyear.herokuapp.com',
-    });
 
         function login(){
           DZ.login(function(response) {

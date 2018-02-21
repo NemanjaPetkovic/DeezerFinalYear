@@ -3,78 +3,281 @@
 <script src="https://e-cdns-files.dzcdn.net/js/min/dz.js"></script>
 <div id="dz-root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-
+<script>
+            DZ.init({
+            appId  : '253822',
+            channelUrl : 'http://127.0.0.1:5000',
+        });
+</script>
 
 
 <style>
+/*********************************************************************************/
+
   .zoom {
   
 }
-
 .zoom:hover {
-    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: scale(1.12);
+    -webkit-transition: transform 1s ease-in-out;
 }
+
+.navbarNavy {
+  background-color: #22222B;
+}
+
+.navbarFont{
+  font-size: 15px;
+  font-family: 'Verdana';
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  vertical-align: middle;
+}
+
+::-webkit-scrollbar { 
+      display: none; 
+}
+
+.sideNav {
+  background-color: #22222B;
+  margin-top: -120px;
+  height: 250%;
+  overflow: hidden;
+  position: fixed;
+}
+
+.logoPadding {
+  padding-bottom: 80px;
+}
+
+.homeBorder {
+  border: 2px solid #15151D;
+  border-radius: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.homePosition {
+  list-style-type: none;
+  margin-left: 30px;
+}
+
+.homeTitle {
+  font-size: 12px;
+  color: white;
+  font-family: 'Verdana';
+  text-align: left;
+  margin-left:28px;
+  color: #E72D63;
+  list-style-type: none;
+}
+
+.myrecBorder {
+  border: 2px solid #15151D;
+  background-color: #15151D;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 20px;
+}
+
+.myrecItems {
+  list-style-type: none;
+  margin-left: 30px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.myrecItemsText {
+  font-size: 12px;
+  font-family: 'Verdana';
+  margin-left: 30px;
+  color: #AFAFAF
+}
+
+.myrecTitle {
+  font-size: 12px;
+  font-family: 'Verdana';
+  color: white;
+  text-align: left;
+  margin-left: 30px;
+  color: #02B5C8;
+  list-style-type: none;
+
+}
+
+.chartBorder {
+  border: 2px solid #15151D;
+  border-radius: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.chartPosition {
+  list-style-type: none;
+  margin-left: 30px;
+}
+
+.chartTitle {
+  font-size: 12px;
+  color: white; font-family: 'Verdana';
+  text-align: center;
+  margin-left: 28px;
+  color: #F2E019
+}
+
+.playerBorder {
+  border-top: 2px solid #15151D;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 20px
+}
+
+.playerTitlePosition {
+  list-style-type: none;
+  margin-left: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.playerTitleText {
+  font-size: 12px;
+  color: white;
+  font-family: 'Verdana';
+  margin-left: 30px;
+}
+
+.player {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-left: -16px;
+}
+
+.topContainer {
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid #162737;
+  padding-bottom: 10px;
+}
+
+.standardContainer {
+  margin-top: 50px;
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid #162737;
+  padding-bottom: 10px;
+}
+
+.standardTitle {
+  text-align:left;
+  font-size: 18px;
+  font-family: 'Verdana';
+  color: #162737;
+}
+
+.deezerWelcome {
+  text-align:left;
+  font-size:  16px;
+  display: inline-block
+}
+
+.usersName {
+  font-size: 16px;
+  display: inline-block;
+  font-weight: bold;
+  text-align:left;
+  font-family: 'Verdana';
+  color: #E72D63;
+}
+
+/*********************************************************************************/
 </style>
 
-
-<nav class="navbar navbar-inverse" style="background-color: #22222B;">
+<nav class="navbar navbar-inverse navbarNavy">
   <div class="container-fluid">
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#" style ="font-size: 15px; font-family: 'Verdana'; color: white; text-align: center; line-height: 40px; vertical-align: middle;">About</a></li>
-      <li><a href="#">    </a></li>
-      <li><a href="http://www.deezer.com/en/" style ="font-size: 15px; font-family: 'Verdana'; text-align: center; line-height: 40px; vertical-align: middle; color: white;">Deezer.com</a></li>
-      <li><a href="#">    </a></li>
-      <li><a onclick="logout()" href="#" data-target="#myModal" data-toggle="modal" style ="font-size: 15px; font-family: 'Verdana'; line-height: 40px; color: white;">Logout</a></li>
+      <li><a class="navbarFont" href="#">About</a></li>
+      <li><a href="#"></a></li>
+      <li><a class="navbarFont" href="http://www.deezer.com/en/">Deezer.com</a></li>
+      <li><a href="#"></a></li>
+      <li><a class="navbarFont" onclick="logout()" href="#" data-target="#myModal" data-toggle="modal">Logout</a></li>
     </ul>
   </div>
 </nav>
 
-    <style type="text/css"> /*hide the scroll bar*/
-      ::-webkit-scrollbar { 
-      display: none; 
-}
-</style>
 
-  <div class="col-sm-2" style="background-color: #22222B; margin-top: -120px; height: 200%; overflow: hidden; position: fixed;">
-    <br><br>
-      <div style="padding-bottom: 80px;">
-        <a class="navbar-brand" href="/"> <img src="static/img/DeezerText.png" style="height:40px; width:200px;"></a>
-      </div>
-      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 10px; padding-bottom: 10px;">
-        <li style="margin-left: 30px;"><a href="main" style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left:28px;">HOME<i class="glyphicon glyphicon-home navbar-left"></i></a></li>
-      </div>
-      <br><br>
-      <div style="border: 1px solid #15151D; background-color: #15151D;  padding-top: 10px; padding-bottom: 10px; border-radius: 20px">
-        <a href="user" style ="font-size: 12px; font-family: 'Verdana'; color: white; text-align: center; margin-left: 30px" >MY RECOMMENDATIONS </a>
-        <li style="margin-left: 30px; padding-top: 20px; padding-bottom: 10px;"> <a href="#UserInfo" style ="font-size: 12px; margin-left: 30px; font-family: 'Verdana'; color: #AFAFAF"><i class="glyphicon glyphicon-user navbar-left"></i>User Profile</a></li>
-        <li style="margin-left: 30px; padding-top: 10px; padding-bottom: 10px;"><a href="#UsersTopRecommendations" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"> <i class="glyphicon glyphicon-music navbar-left"></i>Discover Tracks</a></li>
-        <li style="margin-left: 30px; padding-top: 10px; padding-bottom: 10px;"><a href="#PlaylistRecommendations" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"> <i class="glyphicon glyphicon-list-alt navbar-left"></i>Discover Playlists</a></li>
-        <li style="margin-left: 30px; padding-top: 10px; padding-bottom: 10px;"><a href="#UsersArtistRecommendation" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"> <i class="glyphicon glyphicon-star navbar-left"></i>Discover Artists</a></li>
-      </div>
-      <br><br>
-      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 10px; padding-bottom: 10px;">
-        <li style="margin-left: 30px;"><a href="" style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left: 28px;">MUSIC DATA<i class="glyphicon glyphicon-stats navbar-left"></i></a></li>
-      </div>
-      <br><br>
-      <div id =playerData>
-        <p style="font-size: 16px; color: white; font-family: 'Verdana'; text-align: center;"> You might like </p>
-        
-      </div>
+
+<div class="col-sm-2 sideNav">
+  <br><br>
+  <div class="logoPadding">
+    <a class="navbar-brand" href="/"><img src="static/img/DeezerText.png" style="height:40px; width:200px;"></a>
   </div>
+  <div class="homeBorder">
+    <li class="homePosition">
+      <a class="homeTitle" href="main">HOME
+        <i class="glyphicon glyphicon-home navbar-left"></i>
+      </a>
+    </li>
+  </div>
+  <br>
+  <div class="myrecBorder">
+    <a class="myrecTitle" href="user">MY RECOMMENDATIONS </a>
+    <li class="myrecItems">
+      <a href="#UserInfo" class="myrecItemsText">
+        <i class="glyphicon glyphicon-user navbar-left"></i>User Profile
+      </a>
+    </li>
+    <li class="myrecItems">
+      <a href="#UsersTopRecommendations" class="myrecItemsText">
+        <i class="glyphicon glyphicon-music navbar-left"></i>Discover Tracks
+      </a>
+    </li>
+    <li class="myrecItems">
+      <a href="#PlaylistRecommendations" class="myrecItemsText">
+        <i class="glyphicon glyphicon-list-alt navbar-left"></i>Discover Playlists
+      </a>
+    </li>
+    <li class="myrecItems">
+      <a href="#UsersArtistRecommendation" class="myrecItemsText">
+        <i class="glyphicon glyphicon-star navbar-left"></i>Discover Artists
+      </a>
+    </li>
+  </div>
+  <br>
+  <div class="chartBorder">
+    <li class="chartPosition">
+      <a href="charts" class="chartTitle">MUSIC DATA
+        <i class="glyphicon glyphicon-stats navbar-left"></i>
+      </a>
+    </li>
+  </div>
+  <br><br><br><br><br><br><br><br><br>
+  <div class="playerBorder">
+    <li class="playerTitlePosition">
+      <a href="#" class="playerTitleText">
+        <i class="glyphicon glyphicon-music navbar-left"></i>YOUR MIX
+      </a>
+    </li>  
+  </div>
+  <div id ="playerData" class="player"></div>
+</div>
   
  <!--  ***************************************************************** -->
   <div class="col-sm-8 col-sm-offset-3" style="overflow: scroll;">
 
-  <div class="container" id ="UserInfo" style="width: 100%; background-color: white; border-radius: 20px; border: 1px solid #AFAFAF; padding-bottom: 10px;">
+  <div class="container topContainer" id ="UserInfo">
     <div class="row" style="margin-top: 10px;">
       <div class="col-md-12"> 
-        <p style = "text-align:left; font-size: 18px"> <b>User Profile </b></p>
+        <p class="standardTitle"> <b>User Profile </b></p>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12"> 
-          <p style = "text-align:left; font-size:  16px; display: inline-block"> Welcome to your Deezer, </p>
-          <div style ="font-size: 16px; display: inline-block; font-weight: bold; text-align:left; font-family: 'Verdana'" id="UserName"></div>          
+          <p class="deezerWelcome"> Welcome to your Deezer, </p>
+          <div class="usersName" id="UserName"></div>          
         </div>
       </div>
       <div class="row" style="margin-top: 10px;">
@@ -86,7 +289,7 @@
         <div class="col-md-7">
           <div class="col-md-6">
         <p style="font-size: 15px; display: inline-block; font-family: 'Verdana'; padding-right: 10px"> Followings:  </p>
-        <div style ="font-size: 15px; text-align: right; font-family: 'Verdana'; display: inline-block" id="UserFollowings"></div>
+        <div style ="font-size: 15px; font-family: 'Verdana'; display: inline-block" id="UserFollowings"></div>
           <br>
           <p style="font-size: 15px; display: inline-block; font-family: 'Verdana'; padding-right: 18px "> Followers:  </p>
           <div style ="font-size: 15px; font-family: 'Verdana'; display: inline-block; " id="UserFollowers"></div>
@@ -100,10 +303,10 @@
     </div>
   </div>
 
-  <div class="container" id ="UsersTopRecommendations" style="margin-top: 50px; width: 100%; background-color: white; border-radius: 20px; border: 1px solid #AFAFAF; padding-bottom: 10px"> 
+  <div class="container standardContainer" id ="UsersTopRecommendations"> 
     <div class="row" style="margin-top: 20px;">
       <div class="col-md-12"> 
-        <p style = "text-align:left; font-size: 18px"> <b>Your top recommendations </b></p>
+        <p class="standardTitle"> <b>Your top recommendations </b></p>
       </div>
     </div>
     <br>
@@ -121,21 +324,21 @@
     </div>
   </div> 
 
-<div class="container" id ="PlaylistRecommendations" style=" width: 100%; margin-top: 50px; background-color: white; border-radius: 20px; border: 1px solid #AFAFAF; padding-bottom: 10px">
+<div class="container standardContainer" id ="PlaylistRecommendations">
   <div class="row" style="margin-top: 20px;">
       <div class="col-md-12"> 
-        <p style = "text-align:left; font-size: 18px"> <b>Playlist recommendations </b></p>
+        <p class="standardTitle"> <b>Playlist recommendations </b></p>
       </div>
     </div>
     <div class="row" style="">
-        <div class="bs-example">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-left: 10px; width: 98%; ">
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active" style="background-color: red"></li>
-                    <li data-target="#myCarousel" data-slide-to="1" style="background-color: yellow"></li>
-                    <li data-target="#myCarousel" data-slide-to="2" style="background-color: pink"></li>
-                    <li data-target="#myCarousel" data-slide-to="4" style="background-color: green"></li>
-                    <li data-target="#myCarousel" data-slide-to="5" style="background-color: blue"></li>
+      <div class="bs-example">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-left: 10px; width: 98%; ">
+              <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active" style="background-color: #e3231d"></li>
+                <li data-target="#myCarousel" data-slide-to="1" style="background-color: #fedd00"></li>
+                <li data-target="#myCarousel" data-slide-to="2" style="background-color: #d72c88"></li>
+                <li data-target="#myCarousel" data-slide-to="4" style="background-color: #c3d200"></li>
+                <li data-target="#myCarousel" data-slide-to="5" style="background-color: #40b4e6"></li>
                 </ol>   
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner" style="">
@@ -178,10 +381,10 @@
     </div>
      
        
-    <div class="container" id="UsersArtistRecommendation" style="margin-top: 50px; width: 100%; background-color: white; border-radius: 20px; border: 1px solid #AFAFAF; padding-bottom: 10px"> 
+    <div class="container standardContainer" id="UsersArtistRecommendation"> 
       <div class="row" style="margin-top: 20px;">
       <div class="col-md-12"> 
-        <p style = "text-align:left; font-size: 18px"> <b>Artist recommendations </b></p>
+        <p class="standardTitle"> <b>Artist recommendations </b></p>
       </div>
     </div>
           <div class="row">
@@ -217,25 +420,25 @@
 
                 <figure class="col-md-3 col-sm-6">
                     <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg" data-size="1600x1067">
-                        <div id= "RecArtist4" class="img-fluid">
+                        <div id= "RecArtist4" class="img-fluid" style="margin-top: 15px;">
                     </a>
                 </figure>
 
                 <figure class="col-md-3 col-sm-6">
                     <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg" data-size="1600x1067">
-                        <div id= "RecArtist5" class="img-fluid">
+                        <div id= "RecArtist5" class="img-fluid" style="margin-top: 15px;">
                     </a>
                 </figure>
 
                 <figure class="col-md-3 col-sm-6">
                     <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg" data-size="1600x1067">
-                        <div id= "RecArtist6" class="img-fluid">
+                        <div id= "RecArtist6" class="img-fluid" style="margin-top: 15px;">
                     </a>
                 </figure>
 
                 <figure class="col-md-3 col-sm-6">
                     <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg" data-size="1600x1067">
-                        <div id= "RecArtist7" class="img-fluid">
+                        <div id= "RecArtist7" class="img-fluid" style="margin-top: 15px;">
                     </a>
                 </figure>
 
@@ -245,28 +448,70 @@
     </div>
     </div>
 
-
-
- <!--    <div class="jumbotron" style="height:900px; width: 100%; border-radius: 10px; margin-top: 50px;">
-      <div class="row">
-        <div class="col-md-6"> 
-          <p style ="text-align: center;"> Your listening history</p>
-          <canvas id="userChart1" style="height:400px;"></canvas></div>
-          <p style ="text-align: center;"> Your top tracks</p>
-          <div class="col-md-6">
-          <canvas id="userChart2" style="height:400px;"></canvas>
-          </div>
+    <div class="container standardContainer" id ="FriendsInfo">
+  <div class="row" style="margin-top: 20px;">
+      <div class="col-md-12"> 
+        <p class="standardTitle"> <b>What my friends are listening </b></p>
+      </div>
+  </div>
+  <div class="row" style="margin-top: 20px;">
+      <div class="col-md-12"> 
+        <div id = "RandomFriend" style="text-align: center;"> </div>
+      </div>
+  </div>
+    <div class="row" style="">
+      <div class="bs-example">
+          <div id="myCarousel2" class="carousel slide" data-ride="carousel" style="margin-left: 10px; width: 98%; ">
+              <ol class="carousel-indicators">
+                <li data-target="#myCarousel2" data-slide-to="0" class="active" style="background-color: #e3231d"></li>
+                <li data-target="#myCarousel2" data-slide-to="1" style="background-color: #fedd00"></li>
+                <li data-target="#myCarousel2" data-slide-to="2" style="background-color: #d72c88"></li>
+                <li data-target="#myCarousel2" data-slide-to="4" style="background-color: #c3d200"></li>
+                <li data-target="#myCarousel2" data-slide-to="5" style="background-color: #40b4e6"></li>
+                </ol>   
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner" style="">
+                  <div class="item active">
+                    <div id="Friendsmusic11" style="">
+                      <div id="Friendsmusic1" class="img-fluid"  style=" background-color: rgba(255,255,255,0.7);"></div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div id="Friendsmusic22" style="">
+                      <div id="Friendsmusic2" class="img-fluid" style="background-color: rgba(255,255,255,0.7);"></div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div id="Friendsmusic33" style="">
+                      <div id="Friendsmusic3" class="img-fluid" style="background-color: rgba(255,255,255,0.7);"></div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div id="Friendsmusic44" style="">
+                      <div id="Friendsmusic4" class="img-fluid" style="background-color: rgba(255,255,255,0.7);"></div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div id="Friendsmusic55" style="">
+                      <div id="Friendsmusic5" class="img-fluid" style="background-color: rgba(255,255,255,0.7);"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Carousel controls -->
+                <a class="carousel-control left" href="#myCarousel2" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="carousel-control right" href="#myCarousel2" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
         </div>
-        <hr>
-      <div class="row">
-        <div class="col-md-6">
-          <canvas id="userChart3" style="height:400px;"></canvas>
-        </div>
-      <div class="col-md-6"></div>
       </div>
     </div>
+    <br><br>
+    </div>
 
--->
+
     <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -284,10 +529,6 @@
       </div>
     </div>
   </div>
-</div>
-</div> 
-
-
 
 
 
@@ -296,7 +537,7 @@
   var token;
 DZ.init({
       appId  : '253822',
-      channelUrl : 'http://127.0.0.1:5000',
+      channelUrl : 'http://127.0.0.1:5000/',
     });
 
 function logout(){
@@ -306,19 +547,7 @@ function logout(){
 DZ.getLoginStatus(function(response){
            id = response.userID;
            token = response.authResponse.accessToken;
-
-
-//   (function(d, s, id) { 
-//   var js, djs = d.getElementsByTagName(s)[0];
-//   if (d.getElementById(id)) return; 
-//   js = d.createElement(s); js.id = id; 
-//   js.src = "https://e-cdns-files.dzcdn.net/js/widget/loader.js"; 
-//    djs.parentNode.insertBefore(js, djs);
-// }(document, "script", "deezer-widget-loader"));
-
-
 console.log(token);
-
 
 var url = 'https://api.deezer.com/user/' + id +'/history&access_token='+ token;
 var url1 = 'https://api.deezer.com/user/' + id +'/tracks';
@@ -351,16 +580,16 @@ document.getElementById("DateJoined").innerHTML  = apiDateJoined['inscription_da
 
 DZ.api('/user/me/recommendations/tracks', function(response){
   var  RankRecText = [];
-    for (var i = 0; i <3; i++) {
+    for (var i = 0; i <4; i++) {
         var  TrackRec = response.data[i].album.cover_big;
         var  TrackRecText = response.data[i].title;
         var  ArtistRecText = response.data[i].artist.name;
         RankRecText.push(response.data[i].rank); 
 
-        document.getElementById("trackrecsRow1").innerHTML += "<div class='col-md-4'><img class='user_img_tracks' src='"+TrackRec+"' style='width:80%'></img></div>";
-        document.getElementById("trackrecsRow2").innerHTML += "<div class='col-md-4'><h2  class='trackRecText' style='font-size: 18px'><b>"+TrackRecText+" </b></h2></div>";
-        document.getElementById("artistrecsRow3").innerHTML += "<div class='col-md-4'><h2 class='artistRecText' style='font-size: 17px'>"+ArtistRecText+"</h2></div>";
-        document.getElementById("chartGuage").innerHTML += "<div class='col-md-4'><div  id='chartGuage"+i+"' class='RankRecText' style='font-size: 20px; text-align: center'></div></div>";
+        document.getElementById("trackrecsRow1").innerHTML += "<div class='col-md-3'><img class='user_img_tracks' src='"+TrackRec+"' style='width:100%'></img></div>";
+        document.getElementById("trackrecsRow2").innerHTML += "<div class='col-md-3'><h2  class='trackRecText' style='font-size: 18px; color: #02B5C8'><b>"+TrackRecText+" </b></h2></div>";
+        document.getElementById("artistrecsRow3").innerHTML += "<div class='col-md-3'><h2 class='artistRecText' style='font-size: 16px; color: #162737'>"+ArtistRecText+"</h2></div>";
+        document.getElementById("chartGuage").innerHTML += "<div class='col-md-3'><div id='chartGuage"+i+"' class='RankRecText' style='font-size: 20px; text-align: center'></div></div>";
 
       }
            var j = new JustGage({
@@ -370,7 +599,7 @@ DZ.api('/user/me/recommendations/tracks', function(response){
             max: 100,
             title: "Popularity",
             pointer: true,
-            symbol: '%'
+            symbol: '%',
             });
            var k = new JustGage({
             id: "chartGuage1",
@@ -390,8 +619,15 @@ DZ.api('/user/me/recommendations/tracks', function(response){
             pointer: true,
             symbol: '%'
             });
-
-
+           var m = new JustGage({
+            id: "chartGuage3",
+            value: (RankRecText[3]/10000),
+            min: 0,
+            max: 100,
+            title: "Popularity",
+            pointer: true,
+            symbol: '%'
+            });
 
   })
 
@@ -414,20 +650,21 @@ DZ.api('/user/me/recommendations/playlists', function(response){
               var  PlaylistRecLink3 = response.data[3].link;
               var  PlaylistRecLink4 = response.data[4].link;
 
-            document.getElementById("RecPlaylist0").innerHTML += "<a href ='"+PlaylistRecLink0+"'><img class='user_img_playlist' src='"+PlaylistRec0+"' href ='"+PlaylistRec0+"' style=' display: block; margin-left: auto; margin-right: auto; width:45%;'></img></a>";
+            document.getElementById("RecPlaylist0").innerHTML += "<a href ='"+PlaylistRecLink0+"'><img class='user_img_playlist' src='"+PlaylistRec0+"' href ='"+PlaylistRec0+"' style=' display: block; margin-left: auto; margin-right: auto; width:40%;'></img></a>";
             document.getElementById("RecPlaylist00").style.backgroundImage="url('"+PlaylistRec0+"')";
 
-            document.getElementById("RecPlaylist1").innerHTML += "<a href ='"+PlaylistRecLink1+"'><img class='user_img_playlist' src='"+PlaylistRec1+"' href ='"+PlaylistRec1+"' style=' display: block; margin-left: auto; margin-right: auto; width:45%;'></img></a>";
+            document.getElementById("RecPlaylist1").innerHTML += "<a href ='"+PlaylistRecLink1+"'><img class='user_img_playlist' src='"+PlaylistRec1+"' href ='"+PlaylistRec1+"' style=' display: block; margin-left: auto; margin-right: auto; width:40%;'></img></a>";
             document.getElementById("RecPlaylist11").style.backgroundImage="url('"+PlaylistRec1+"')";
 
-            document.getElementById("RecPlaylist2").innerHTML += "<a href ='"+PlaylistRecLink2+"'><img class='user_img_playlist' src='"+PlaylistRec2+"' href ='"+PlaylistRec2+"' style=' display: block; margin-left: auto; margin-right: auto; width:45%;'></img></a>";
+            document.getElementById("RecPlaylist2").innerHTML += "<a href ='"+PlaylistRecLink2+"'><img class='user_img_playlist' src='"+PlaylistRec2+"' href ='"+PlaylistRec2+"' style=' display: block; margin-left: auto; margin-right: auto; width:40%;'></img></a>";
             document.getElementById("RecPlaylist22").style.backgroundImage="url('"+PlaylistRec2+"')";
 
-            document.getElementById("RecPlaylist3").innerHTML += "<a href ='"+PlaylistRecLink3+"'><img class='user_img_playlist' src='"+PlaylistRec3+"' href ='"+PlaylistRec3+"' style=' display: block; margin-left: auto; margin-right: auto; width:45%;'></img></a>";
+            document.getElementById("RecPlaylist3").innerHTML += "<a href ='"+PlaylistRecLink3+"'><img class='user_img_playlist' src='"+PlaylistRec3+"' href ='"+PlaylistRec3+"' style=' display: block; margin-left: auto; margin-right: auto; width:40%;'></img></a>";
             document.getElementById("RecPlaylist33").style.backgroundImage="url('"+PlaylistRec3+"')";
 
-            document.getElementById("RecPlaylist4").innerHTML += "<a href ='"+PlaylistRecLink4+"'><img class='user_img_playlist' src='"+PlaylistRec4+"' href ='"+PlaylistRec4+"' style=' display: block; margin-left: auto; margin-right: auto; width:45%;'></img></a>";
+            document.getElementById("RecPlaylist4").innerHTML += "<a href ='"+PlaylistRecLink4+"'><img class='user_img_playlist' src='"+PlaylistRec4+"' href ='"+PlaylistRec4+"' style=' display: block; margin-left: auto; margin-right: auto; width:40%;'></img></a>";
             document.getElementById("RecPlaylist44").style.backgroundImage="url('"+PlaylistRec4+"')";
+
 
 })
 
@@ -455,103 +692,68 @@ DZ.api('/user/me/recommendations/artists', function(response){
               var  ArtistName7 = response.data[7].name;
 
 
-            document.getElementById("RecArtist0").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox0+"' href ='"+ArtistLightbox0+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName0+"' style=' display: block; margin-left: auto; margin-right: auto; width:108%; .zoom:hover transform: scale(1.5);'></img>";
-            document.getElementById("RecArtist1").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox1+"' href ='"+ArtistLightbox1+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName1+"' style=' display: block; margin-left: auto; margin-right: auto; width:108%;'></img>";
-            document.getElementById("RecArtist2").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox2+"' href ='"+ArtistLightbox2+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName2+"' style=' display: block; margin-left: auto; margin-right: auto; width:108%;'></img>";
-            document.getElementById("RecArtist3").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox3+"' href ='"+ArtistLightbox3+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName3+"' style=' display: block; margin-left: auto; margin-right: auto; width:108%;'></img>";
-            document.getElementById("RecArtist4").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox4+"' href ='"+ArtistLightbox4+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName4+"' style=' display: block; margin-left: auto; margin-right: auto; width:108%;'></img>";
-            document.getElementById("RecArtist5").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox5+"' href ='"+ArtistLightbox5+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName5+"' style=' display: block; margin-left: auto; margin-right: auto; width:108%;'></img>";
-            document.getElementById("RecArtist6").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox6+"' href ='"+ArtistLightbox6+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName6+"' style=' display: block; margin-left: auto; margin-right: auto; width:108%;'></img>";
-            document.getElementById("RecArtist7").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox7+"' href ='"+ArtistLightbox7+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName7+"' style=' display: block; margin-left: auto; margin-right: auto; width:108%;'></img>";
+            document.getElementById("RecArtist0").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox0+"' href ='"+ArtistLightbox0+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName0+"' style=' display: block; margin-left: auto; margin-right: auto; width:105%;'></img>";
+            document.getElementById("RecArtist1").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox1+"' href ='"+ArtistLightbox1+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName1+"' style=' display: block; margin-left: auto; margin-right: auto; width:105%;'></img>";
+            document.getElementById("RecArtist2").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox2+"' href ='"+ArtistLightbox2+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName2+"' style=' display: block; margin-left: auto; margin-right: auto; width:105%;'></img>";
+            document.getElementById("RecArtist3").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox3+"' href ='"+ArtistLightbox3+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName3+"' style=' display: block; margin-left: auto; margin-right: auto; width:105%;'></img>";
+            document.getElementById("RecArtist4").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox4+"' href ='"+ArtistLightbox4+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName4+"' style=' display: block; margin-left: auto; margin-right: auto; width:105%;'></img>";
+            document.getElementById("RecArtist5").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox5+"' href ='"+ArtistLightbox5+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName5+"' style=' display: block; margin-left: auto; margin-right: auto; width:105%;'></img>";
+            document.getElementById("RecArtist6").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox6+"' href ='"+ArtistLightbox6+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName6+"' style=' display: block; margin-left: auto; margin-right: auto; width:105%;'></img>";
+            document.getElementById("RecArtist7").innerHTML += "<img class='user_img_artist zoom' src='"+ArtistLightbox7+"' href ='"+ArtistLightbox7+"' data-toggle='tooltip' data-placement='top' title='"+ArtistName7+"' style=' display: block; margin-left: auto; margin-right: auto; width:105%;'></img>";
 
-            document.getElementById("playerData").innerHTML += "<iframe scrolling='no' frameborder='0' allowTransparency='true' src='https://www.deezer.com/plugins/player?format=square&autoplay=false&playlist=false&width=230&height=230&color=008aff&layout=dark&size=medium&type=artist&id="+ ArtistPlayer+"&app_id=253822' width='230' height='230'</iframe>";
-              
-
+            document.getElementById("playerData").innerHTML += "<iframe style='width: 16.73%;' scrolling='no' frameborder='0' allowTransparency='true' src='https://www.deezer.com/plugins/player?format=square&autoplay=false&width=250&height=250playlist=false&color=008aff&layout=dark&size=big&type=artist&id="+ ArtistPlayer+"&app_id=253822' width='250' height='250' </iframe>";
+        
 })
 
+var  FriendsName = [];
 
-var ctx10 = document.getElementById('userChart1');
-var stackedBar = new Chart(ctx10, {
-    type: 'horizontalBar',
-    data: {
-   	labels: [apiresponse['data'][0]['title'],apiresponse['data'][1]['title'],apiresponse['data'][2]['title'],apiresponse['data'][3]['title'],apiresponse['data'][4]['title'],apiresponse['data'][5]['title'],apiresponse['data'][6]['title'],apiresponse['data'][7]['title'],apiresponse['data'][8]['title'],apiresponse['data'][9]['title']],
-      datasets: [
-        {
-          label: "Last listened to",
-          data: [10,9,8,7,6,5,4,3,2,1],
-      backgroundColor: [
-                'rgba(185, 0, 0, 0.5)',
-                'rgba(185, 128, 0, 0.5)',
-                'rgba(185, 185, 0, 0.5)',
-                'rgba(128, 185, 0, 0.5)',
-                'rgba(0, 185, 128, 0.5)',
-                'rgba(0, 128, 185, 0.5)',
-                'rgba(0, 0, 185, 0.5)',
-                'rgba(127, 0, 165, 0.5)',
-                'rgba(185, 0, 165, 0.5)',
-                'rgba(102, 0, 52, 0.5)'
-            ]}
-      ]},
-		options: {
-			legend: {
-                display: false
-            },
-        	scales: {
-          		xAxes: [{
-          			ticks : {
-                        max : 0,    
-                        min : 10
-                    },
-            		display: false,
-          				}],
-          		yAxes: [{
-            		display: true
-          				}],
-        			}
-      			}
+DZ.api('/user/me/followings', function(response){
+
+    var  FriendsTotal = response.total;
+    var  SelectRandFriend = Math.floor(Math.random()*FriendsTotal);
+    var  Friendsid = response.data[SelectRandFriend].id;
+    var  FriendsName = response.data[SelectRandFriend].name;
+  DZ.api('/user/'+Friendsid+'/flow', function(response){
+
+    var  FriendsSong0 = response.data[0].artist.picture_xl;
+    var  FriendsSong1 = response.data[1].artist.picture_xl;
+    var  FriendsSong2 = response.data[2].artist.picture_xl;
+    var  FriendsSong3 = response.data[3].artist.picture_xl;
+    var  FriendsSong4 = response.data[4].artist.picture_xl;
+
+    var  FriendsSongTitle0 = response.data[0].title;
+    var  FriendsSongTitle1 = response.data[1].title;
+    var  FriendsSongTitle2 = response.data[2].title;
+    var  FriendsSongTitle3 = response.data[3].title;
+    var  FriendsSongTitle4 = response.data[4].title;
+
+    var  FriendsSongArtist0 = response.data[0].artist.name;
+    var  FriendsSongArtist1 = response.data[1].artist.name;
+    var  FriendsSongArtist2 = response.data[2].artist.name;
+    var  FriendsSongArtist3 = response.data[3].artist.name;
+    var  FriendsSongArtist4 = response.data[4].artist.name;
+
+            document.getElementById("RandomFriend").innerHTML += "<p style = ' font-size: 20px; font-family: Verdana; color: #E72D63; display: inline-block; '>" +FriendsName+ "</p><p style = 'font-size: 20px; font-family: Verdana; display: inline-block'>'s favorite tracks</P>";
+
+            document.getElementById("Friendsmusic1").innerHTML += "<a href =''><div class='carousel-caption'><h3 class='h3-responsive'>"+FriendsSongTitle0+"</h3><p>"+FriendsSongArtist0+"</p></div><img class='user_img_playlist' src='"+FriendsSong0+"' href ='' style=' display: block; margin-left: auto; margin-right: auto; width:35%;'></img></a>";
+            document.getElementById("Friendsmusic11").style.backgroundImage="url('"+FriendsSong0+"')";
+
+            document.getElementById("Friendsmusic2").innerHTML += "<a href =''><div class='carousel-caption'><h3 class='h3-responsive'>"+FriendsSongTitle1+"</h3><p>"+FriendsSongArtist1+"</p></div><img class='user_img_playlist' src='"+FriendsSong1+"' href ='' style=' display: block; margin-left: auto; margin-right: auto; width:35%;'></img></a>";
+            document.getElementById("Friendsmusic22").style.backgroundImage="url('"+FriendsSong1+"')";
+
+            document.getElementById("Friendsmusic3").innerHTML += "<a href =''><div class='carousel-caption'><h3 class='h3-responsive'>"+FriendsSongTitle2+"</h3><p>"+FriendsSongArtist2+"</p></div><img class='user_img_playlist' src='"+FriendsSong2+"' href ='' style=' display: block; margin-left: auto; margin-right: auto; width:35%;'></img></a>";
+            document.getElementById("Friendsmusic33").style.backgroundImage="url('"+FriendsSong2+"')";
+
+            document.getElementById("Friendsmusic4").innerHTML += "<a href =''><div class='carousel-caption'><h3 class='h3-responsive'>"+FriendsSongTitle3+"</h3><p>"+FriendsSongArtist3+"</p></div><img class='user_img_playlist' src='"+FriendsSong3+"' href ='' style=' display: block; margin-left: auto; margin-right: auto; width:35%;'></img></a>";
+            document.getElementById("Friendsmusic44").style.backgroundImage="url('"+FriendsSong3+"')";
+
+            document.getElementById("Friendsmusic5").innerHTML += "<a href =''><div class='carousel-caption'><h3 class='h3-responsive'>"+FriendsSongTitle4+"</h3><p>"+FriendsSongArtist4+"</p></div><img class='user_img_playlist' src='"+FriendsSong4+"' href ='' style=' display: block; margin-left: auto; margin-right: auto; width:35%;'></img></a>";
+            document.getElementById("Friendsmusic55").style.backgroundImage="url('"+FriendsSong4+"')";
+
     })
 
 
-var ctx11 = document.getElementById('userChart2');
-var stackedBar = new Chart(ctx11, {
-    type: 'polarArea',
-    data: {
-    labels: [tracksresponse['data'][0]['title'],tracksresponse['data'][1]['title'],tracksresponse['data'][2]['title'],tracksresponse['data'][3]['title'],tracksresponse['data'][4]['title'],tracksresponse['data'][5]['title'],tracksresponse['data'][6]['title'],tracksresponse['data'][7]['title'],tracksresponse['data'][8]['title'],tracksresponse['data'][9]['title']],
-      datasets: [
-        {
-          label: "Last listened to",
-          data: [10,9.5,9,8.5,8,7.5,7,6.5,6,5.5],
-      backgroundColor: [
-                'rgba(185, 0, 0, 0.5)',
-                'rgba(185, 128, 0, 0.5)',
-                'rgba(185, 185, 0, 0.5)',
-                'rgba(128, 185, 0, 0.5)',
-                'rgba(0, 185, 128, 0.5)',
-                'rgba(0, 128, 185, 0.5)',
-                'rgba(0, 0, 185, 0.5)',
-                'rgba(127, 0, 165, 0.5)',
-                'rgba(185, 0, 165, 0.5)',
-                'rgba(102, 0, 52, 0.5)'
-            ]}
-      ]},
-    options: {
-      legend: {
-                display: false
-            },
-          scales: {
-              xAxes: [{
-                ticks : {
-                        max : 4,    
-                        min : 10
-                    },
-                display: false,
-                  }],
-              yAxes: [{
-                display: false
-                  }],
-              }
-            }
-    })
+})
 
 
 })

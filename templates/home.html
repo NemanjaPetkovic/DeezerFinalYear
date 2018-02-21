@@ -1,6 +1,6 @@
 {% extends "index.html"%}
 {% block body %}
-<script src="https://e-cdns-files.dzcdn.net/js/min/dz.js"></script>
+<script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
 <div id="dz-root"></div>
     <link rel="stylesheet" href="https://www.koolchart.com/demo/KoolChart/Assets/Css/KoolChart.css"/>
     <link rel="stylesheet" href="https://www.koolchart.com/demo/Samples/Web/sample.css"/>
@@ -10,10 +10,7 @@
 <script>
 
 
-DZ.init({
-      appId  : '253822',
-      channelUrl : 'http://127.0.0.1:5000',
-    });
+
 
       function check(){ 
         DZ.getLoginStatus(function(response){
@@ -50,24 +47,25 @@ DZ.init({
 }
     </style>
 
-<div class="col-sm-2" style="background-color: #22222B; margin-top: -120px; height: 200%; overflow: hidden; position: fixed;">
+<div class="col-sm-2" style="background-color: #22222B; margin-top: -120px; height: 250%; overflow: hidden; position: fixed;">
     <br><br>
       <div style="padding-bottom: 80px;">
         <a class="navbar-brand" href="/"> <img src="static/img/DeezerText.png" style="height:40px; width:200px;"></a>
       </div>
-      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 10px; padding-bottom: 10px; background-color: #15151D;">
-        <li style="margin-left: 30px;"><a style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left:28px;">HOME<i class="glyphicon glyphicon-home navbar-left"></i></a></li>
-        <li style="margin-left: 30px; padding-top: 20px; padding-bottom: 10px;"> <a href="#worldMap" style ="font-size: 12px; margin-left: 30px; font-family: 'Verdana'; color: #AFAFAF"><i class="glyphicon glyphicon-user navbar-left"></i>World Map</a></li>
-        <li style="margin-left: 30px; padding-top: 10px; padding-bottom: 10px;"><a href="#musicCharts" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"> <i class="glyphicon glyphicon-music navbar-left"></i>Charts</a></li>
-        <li style="margin-left: 30px; padding-top: 10px; padding-bottom: 10px;"><a href="#topCharts" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"> <i class="glyphicon glyphicon-list-alt navbar-left"></i>Top tracks by country</a></li>
+      <br>
+      <div style="border: 2px solid #15151D; background-color: #15151D;  padding-top: 13px; padding-bottom: 13px; border-radius: 18px">
+        <a href="main" style ="font-size: 12px; font-family: 'Verdana'; color: white; text-align: center; margin-left: 30px; color: #E72D63" >HOME</a></li>
+        <li style="list-style-type: none; margin-left: 30px; padding-top: 13px; padding-bottom: 13px;"> <a href="#worldMap" style ="font-size: 12px; margin-left: 30px; font-family: 'Verdana'; color: #AFAFAF"><i class="glyphicon glyphicon-user navbar-left"></i>World Map</a></li>
+        <li style="list-style-type: none; margin-left: 30px; padding-top: 13px; padding-bottom: 13px;"><a href="#musicCharts" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"> <i class="glyphicon glyphicon-music navbar-left"></i>Charts</a></li>
+        <li style="list-style-type: none; margin-left: 30px; padding-top: 13px; padding-bottom: 13px;"><a href="#topCharts" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"> <i class="glyphicon glyphicon-list-alt navbar-left"></i>Top tracks by country</a></li>
       </div>
       <br><br>
-      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 10px; padding-bottom: 10px;">
-        <li style="margin-left: 30px;"><a href="" style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left: 28px;"><i class="glyphicon glyphicon-th-list navbar-left"></i> MY RECOMMENDATIONS </a>
+      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 13px; padding-bottom: 13px;">
+        <li style="list-style-type: none; margin-left: 30px;"><a href="/user" style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left: 28px; color: #02B5C8"><i class="glyphicon glyphicon-th-list navbar-left"></i> MY RECOMMENDATIONS </a></li>
       </div>
       <br><br>
-      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 10px; padding-bottom: 10px;">
-        <li style="margin-left: 30px;"><a href="" style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left: 28px;">MUSIC DATA<i class="glyphicon glyphicon-stats navbar-left"></i></a></li>
+      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 13px; padding-bottom: 13px;">
+        <li style="list-style-type: none; margin-left: 30px;"><a href="charts" style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left: 28px; color: #F2E019">MUSIC DATA<i class="glyphicon glyphicon-stats navbar-left"></i></a></li>
       </div>
       <br><br>
       <div id =playerData>
@@ -78,12 +76,12 @@ DZ.init({
  <!--  ***************************************************************** -->
   <div class="col-sm-8 col-sm-offset-3" style="overflow: scroll;">
     
-  <div class="container" id= "worldMap" style="width: 100%; height: 450px; background-color: white; border-radius: 20px; border: 1px solid #AFAFAF; padding-bottom: 60px;">
+  <div class="container" id= "worldMap" style="width: 100%; height: 550px; background-color: white; border-radius: 20px; border: 1px solid #162737; padding-bottom: 60px;">
     <div class="row" style="margin-top: 10px;">
       <div class="col-md-12"> 
-        <p style = "text-align:left; font-size: 18px"> <b>User Profile </b></p>
+        <p style = "text-align:left; font-size: 18px; font-family: 'Verdana';  color: #162737;"> <b>Music Map </b></p>
         </div>
-      </div>
+    </div>
     <div id="map" style="width: 100%"></div>
 </div>
 <br><br>
@@ -785,48 +783,49 @@ var genreresponse = httpGet(urlgenre)
 
 
 
-  <div class="container" id= "musicCharts" style="height:400px; width: 100%; background-color: white; border-radius: 20px; border: 1px solid #AFAFAF; padding-bottom: 10px;">
+  <div class="container" id= "musicCharts" style="width: 100%; background-color: white; border-radius: 20px; border: 1px solid #162737; padding-bottom: 10px; font-family: 'Verdana';">
     <div class="row" style="margin-top: 10px;">
       <div class="col-md-12"> 
-        <p style = "text-align:left; font-size: 18px"> <b>Charts </b></p>
+        <p style = "text-align:left; font-size: 18px; color: #162737;"> <b>Charts </b></p>
         </div>
       </div>
-      <div class="col-sm-4" style ="background-color:white; height:300px;">
-        <p style = "text-align:center;"> Top tracks in the world </p>
+      <div class="col-sm-4" style ="background-color:white; max-height: 240px;">
+        <p style = "text-align:center; font-family: 'Verdana'; font-size: 14px;">Top tracks in the world </p>
           <canvas id="myChart1"></canvas>
 
       </div>
-      <div class="col-sm-4" style ="background-color:white; height:300px;">
-        <p style = "text-align:center;"> Top artists </p>
-          <div id="chartHolder" style="width:85%; height:85%; margin:-10px 35px;"></div>
+      <div class="col-sm-4" style ="background-color:white; height:275px;">
+        <p style = "text-align:center; font-family: 'Verdana'; font-size: 14px;"> Top artists </p>
+          <div id="chartHolder" style=" margin-left: -5px"></div>
       </div>
    
-    <div class="col-sm-4" style ="background-color:white; height:300px;">
-        <p style = "text-align:center;" > Top tracks in your country </p>
+    <div class="col-sm-4" style ="background-color:white; max-height: 240px;">
+        <p style = "text-align:center; font-family: 'Verdana'; font-size: 14px;"> Top tracks in your country</p>
           <canvas id="myChart2"></canvas>
       </div>
     </div>
     <br><br>
-    <div class="container" id= "topCharts" style="width: 100%; background-color: white; border-radius: 20px; border: 1px solid #AFAFAF; padding-bottom: 10px;">
+    <div class="container" id= "topCharts" style="width: 100%; background-color: white; border-radius: 20px; border: 1px solid #162737; padding-bottom: 10px; font-family: 'Verdana';">
       <div class="row" style="margin-top: 10px;">
       <div class="col-md-12"> 
-        <p style = "text-align:left; font-size: 18px"> <b>Top tracks by country </b></p>
+        <p style = "text-align:left; font-size: 18px; color: #162737;"> <b>Top tracks by country </b></p>
         </div>
       </div>
-      <div class="col-sm-7" style ="background-color:white; height:480px; ">
+      <div class="col-sm-8" style ="background-color:white; height:480px; border-right: 1px solid #162737">
         <p style = "text-align:center;">  </p>
         <div class="container">
           <div id="myChart3"></div>
         </div>
-
-     
       </div>
-      <div class="col-sm-5" style ="background-color:white; height:480px; background-color: #F4F4F4;">
-        <p style="font-size: 16px; margin: 40px 0px;">Select a country and enter a number less than 10 </p>
-            <form name="d3Form" action="javascript:checkButton()">
+      <div class="col-sm-4" style ="background-color:white;">
+        <p style="font-size: 16px;">Select a country and enter a number of tracks </p>
+        <br>
+        <form name="d3Form" action="javascript:checkButton()">
 
+        <input style="width: 40%; height: 35px; font-size: 18px; border-radius:5px;" type="number" id="topSongs" name ="topSongs" min="1" max="6" value= "5">
 
-    <select style="width: 45%; height: 35px; font-size: 18px; border-radius:5px;">
+        <br><br><br><br>
+    <select style="width: 100%; height: 35px; font-size: 18px; border-radius:5px;">
       <option value="WORLD" name="topsongs" id="Worldwide"> Worldwide </option>
       <option value="AUSL" name="topsongs" id="Australia"> Australia </option>
       <option value="AUS" name="topsongs" id="Austria"> Austria </option>
@@ -870,9 +869,8 @@ var genreresponse = httpGet(urlgenre)
       <option value="UK" name="topsongs" id="United Kingdom"> United Kingdom </option>
       <option value="USA" name="topsongs" id="USA"> USA </option>
     </select>
-
-      <input style="width: 40%; margin-left: 50px; height: 35px; font-size: 18px; border-radius:5px;" type="number" id="topSongs" name ="topSongs" min="1" max="6" value= "6" >
-        <div id="pieJS" class="container" style ="background-color:white; width: 116%; margin-left: -100px;"> </div>
+  <br>
+      
     <br>
       <button type="submit" id="btn-style" class="btn btn btn-block" name="btn-style">Submit button</button>
     </form>
@@ -915,17 +913,8 @@ var genreresponse = httpGet(urlgenre)
   </div>
 </div>
 
- 
-
 <style>
 
-
-body {
-
-/*  background-color: grey;
-*/}
 </style>
-	
-
 
 {% endblock %}

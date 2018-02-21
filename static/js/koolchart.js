@@ -1,6 +1,6 @@
 var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
 
-KoolChart.create("chartKool", "chartHolder", chartVars, "90%", "90%");
+KoolChart.create("chartKool", "chartHolder", chartVars, "100%", "90%");
 
 function chartReadyHandler(id) {
   document.getElementById(id).setLayout(layoutStr);
@@ -9,7 +9,7 @@ function chartReadyHandler(id) {
 }
 
 var layoutStr =
-  '<KoolChart backgroundColor="white"  borderStyle="none" fontFamily="Noto Sans">'
+  '<KoolChart backgroundColor="white"  borderStyle="none" fontFamily="Verdana">'
    +'<Options>'
    +'</Options>'
    +'<WordCloudChart showDataTips="true">'
@@ -19,16 +19,12 @@ var layoutStr =
        +'<SeriesInterpolate duration="1000"/>'
       +'</showDataEffect>'
       +'<fills>'
-       +'<SolidColor color="#5586a4"/>'
-       +'<SolidColor color="#40b2e6"/>'
-       +'<SolidColor color="#ffa123"/>'
-       +'<SolidColor color="#595c7b"/>'
-       +'<SolidColor color="#ef8075"/>'
-       +'<SolidColor color="#f8ba03"/>'
-       +'<SolidColor color="#03b79a"/>'
-       +'<SolidColor color="#a5d4e6"/>'
-       +'<SolidColor color="#b79d7c"/>'
-       +'<SolidColor color="#9e589e"/>'
+       +'<SolidColor color="#B81700"/>'
+       +'<SolidColor color="#EC671C"/>'
+       +'<SolidColor color="#2A6321"/>'
+       +'<SolidColor color="#162737"/>'
+       +'<SolidColor color="#592F74"/>'
+       +'<SolidColor color="#ABDBE5"/>'
       +'</fills>'
      +'</WordCloudSeries>'
     +'</series>'
