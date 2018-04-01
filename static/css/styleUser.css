@@ -1,0 +1,272 @@
+ .zoom {
+  
+}
+.zoom:hover {
+    transform: scale(1.12);
+    -webkit-transition: transform 1s ease-in-out;
+}
+
+.navbarNavy {
+  	background-color: #22222B;
+  	margin-top: -20px;
+}
+
+.navbarFont{
+	font-size: 15px;
+	font-family: 'Verdana';
+	color: white;
+	text-align: center;
+	line-height: 40px;
+	vertical-align: middle;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+.sideNav {
+	background-color: #22222B;
+	margin-top: -120px;
+	height: 250%;
+	overflow: hidden;
+	position: fixed;
+}
+
+.logoPadding {
+	padding-bottom: 80px;
+}
+
+.logoPosition {
+	height:40px;
+	width:200px;
+	margin-top: 20px;
+}
+
+.homeBorder {
+	border: 2px solid #15151D;
+	border-radius: 18px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	}
+
+.homePosition {
+	list-style-type: none;
+	margin-left: 30px;
+}
+
+.homeTitle {
+	font-size: 12px;
+	color: white;
+	font-family: 'Verdana';
+	text-align: left;
+	margin-left:28px;
+	color: #E72D63;
+	list-style-type: none;
+}
+
+.myrecBorder {
+	border: 2px solid #15151D;
+	background-color: #15151D;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 20px;
+	background-color: #22222B;	
+}
+
+.myrecItems {
+	list-style-type: none;
+	margin-left: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.myrecItemsText {
+	font-size: 12px;
+	font-family: 'Verdana';
+	margin-left: 30px;
+	color: #AFAFAF
+}
+
+.myrecTitle {
+	font-size: 12px;
+	font-family: 'Verdana';
+	color: white;
+	text-align: left;
+	margin-left: 30px;
+	color: #02B5C8;
+	list-style-type: none;
+}
+
+.chartBorder {
+	border: 2px solid #15151D;
+	border-radius: 18px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.chartPosition {
+	list-style-type: none;
+	margin-left: 30px;
+}
+
+.chartTitle {
+	font-size: 12px;
+	color: white; font-family: 'Verdana';
+	text-align: center;
+	margin-left: 28px;
+	color: #F2E019
+}
+
+.playerBorder {
+	border-top: 2px solid #15151D;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 20px
+}
+
+.playerTitlePosition {
+	list-style-type: none;
+	margin-left: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.playerTitleText {
+	font-size: 12px;
+	color: white;
+	font-family: 'Verdana';
+	margin-left: 30px;
+}
+
+.player {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	margin-left: -16px;
+}
+
+.topContainer {
+	width: 100%;
+	background-color: white;
+	border-radius: 20px;
+	border: 1px solid #162737;
+	padding-bottom: 10px;
+}
+
+.standardContainer {
+	margin-top: 50px;
+	width: 100%;
+	background-color: white;
+	border-radius: 20px;
+	border: 1px solid #162737;
+	padding-bottom: 10px;
+	}
+
+.standardTitle {
+	text-align:left;
+	font-size: 18px;
+	font-family: 'Verdana';
+	color: #162737;
+}
+
+.deezerWelcome {
+	text-align:left;
+	font-size:  16px;
+	display: inline-block
+}
+
+.usersName {
+	font-size: 16px;
+	display: inline-block;
+	font-weight: bold;
+	text-align:left;
+	font-family: 'Verdana';
+	color: #E72D63;
+}
+
+.userFollowers {
+	font-size: 15px;
+	display: inline-block;
+	font-family: 'Verdana';
+	padding-right: 10px;
+}
+
+.userFollowings {
+	font-size: 15px;
+	font-family: 'Verdana';
+	display: inline-block;
+}
+
+.noOfFollowers {
+	font-size: 15px;
+	display: inline-block;
+	font-family: 'Verdana';
+	padding-right: 10px; 
+	padding-left: 16px; 
+}
+
+.noOfFollowings {
+	font-size: 15px;
+	font-family: 'Verdana';
+	display: inline-block;
+	padding-right: 18px; 
+}
+
+.userMember {
+	font-size: 15px;
+	display: inline-block;
+	font-family: 'Verdana';
+	padding-right: 10px;
+}
+
+.memberSince {
+	font-size: 15px;
+	font-family: 'Verdana';
+	display: inline-block;
+}
+
+.userImage {
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+  	width:60%;
+  	border-radius: 180px;
+}
+
+.trackRecsPosition {
+	text-align: center;
+}
+
+.carouselPosition {
+	margin-left: 10px;
+	width: 98.4%;
+}
+
+.playlistCarousel {
+  	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+  width:40%;
+}
+
+.playlistCarouselOuter {
+ 	background-color: rgba(255,255,255,0.7);
+}
+
+.artistLightbox {
+  	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+  	width:105%;
+}
+
+.friendCarousel {
+  	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+  	width:35%;
+}
+
+.friendCarouselOuter {
+  	background-color: rgba(255,255,255,0.7);
+}

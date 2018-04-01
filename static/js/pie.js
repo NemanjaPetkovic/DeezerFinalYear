@@ -132,16 +132,15 @@
 		var r = 180;
 		var outerRadius=82.5;
      	var colorscale = d3.scale.ordinal().range(["#40b4e6","#c3d200", "#d72c88", "#fedd00", "#e3231d", "#bbd9ea","#e4e17a","#e8a8cc", "#ef907b"]);
-     	var colorscale1 = d3.scale.ordinal().range(["#bbd9ea","#e4e17a", "#e8a8cc", "#fedd00", "#ef907b", "#bbd9ea","#e4e17a","#e8a8cc", "#ef907b"]);
 
 		var svg = d3.select("#myChart3").append("svg:svg")
 			.attr("width",550)
-			.attr("height", 500)
+			.attr("height", 525)
 			.attr("class", "arc");
 
 
 		var group = svg.append("g")
-			.attr("transform", "translate("+290 +", "+245+")");
+			.attr("transform", "translate("+280 +", "+245+")");
 
 		var arc = d3.svg.arc()
 			.innerRadius(0)
@@ -150,11 +149,11 @@
 
 		var arcOver = d3.svg.arc()
 			.innerRadius(0)
-        	.outerRadius(r + 30)
+        	.outerRadius(r + 15)
         	.padAngle(.01);
 			
 		var label = d3.svg.arc()
-    		.outerRadius(275)
+    		.outerRadius(265)
     		.innerRadius(200)
 
 
@@ -179,7 +178,7 @@
 		        d3.select(this).transition()
 			        .duration(200)
 			        .attr("d", arcOver)
-			        .style("fill", function(d) { return colorscale1(d.data.rank);})
+			        .style("fill", function(d) { return colorscale(d.data.rank);})
 			               })
 			.on("mouseout", function(d) {
 		        d3.select(this).transition()
@@ -191,10 +190,10 @@
 			.attr("text-anchor", "middle")
 			.attr("transform", function(d) {
         		return "translate(" + label.centroid(d) + ")"})
-			.attr("font-size", "18px")
+			.attr("font-size", "15px")
 			.style("fill", "black")
 			.style("font", " Verdana")
-			.text(function (d) { return d.data.title_short.substring(0,15); })
+			.text(function (d) { return d.data.title_short; })
 
 
       function angle(d) {

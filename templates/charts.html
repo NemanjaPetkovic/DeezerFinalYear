@@ -5,289 +5,210 @@
 <script>
             DZ.init({
             appId  : '253822',
-            channelUrl : 'http://deezerfinalyear.herokuapp.com',
+            channelUrl : 'http://127.0.0.1:5000',
         });
 </script>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+<script src="/static/js/charts.js"></script>
 
-<nav class="navbar navbar-inverse" style="background-color: #22222B;">
+<!--******************** TOP NAV BAR ********************--> 
+
+<nav class="navbar navbar-inverse navbarNavyC">
   <div class="container-fluid">
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#" style ="font-size: 15px; font-family: 'Verdana'; color: white; text-align: center; line-height: 40px; vertical-align: middle;">About</a></li>
-      <li><a href="#">    </a></li>
-      <li><a href="http://www.deezer.com/en/" style ="font-size: 15px; font-family: 'Verdana'; text-align: center; line-height: 40px; vertical-align: middle; color: white;">Deezer.com</a></li>
-      <li><a href="#">    </a></li>
-      <li><a onclick="logout()" href="#" data-target="#myModal" data-toggle="modal" style ="font-size: 15px; font-family: 'Verdana'; line-height: 40px; color: white;">Logout</a></li>
+      <li><a href="#"></a></li>
+      <li><a href="http://www.deezer.com/en/" class="navbarFontC">Deezer.com</a></li>
+      <li><a href="#"></a></li>
+      <li><a onclick="logout()" href="#" data-target="#myModal" data-toggle="modal" class="navbarFontC">Logout</a></li>
     </ul>
   </div>
 </nav>
 
-    <style type="text/css"> /*hide the scroll bar*/
-      ::-webkit-scrollbar { 
-      display: none; 
-}
-</style>
+<!--******************** SIDE NAV BAR ********************--> 
 
-  <div class="col-sm-2" style="background-color: #22222B; margin-top: -120px; height: 250%; overflow: hidden; position: fixed;">
-    <br><br>
-      <div style="padding-bottom: 80px;">
-        <a class="navbar-brand" href="/"> <img src="static/img/DeezerText.png" style="height:40px; width:200px;"></a>
-      </div>
-      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 10px; padding-bottom: 10px;">
-        <li style="list-style-type: none; margin-left: 30px;"><a href="main" style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left:28px; color: #E72D63">HOME<i class="glyphicon glyphicon-home navbar-left"></i></a></li>
-      </div>
-      <br>
-      <div style="border: 2px solid #15151D; border-radius: 18px; padding-top: 13px; padding-bottom: 13px;">
-        <li style="list-style-type: none; margin-left: 30px;"><a href="/user" style ="font-size: 12px; color: white; font-family: 'Verdana'; text-align: center; margin-left: 28px; color: #02B5C8"><i class="glyphicon glyphicon-th-list navbar-left"></i> MY RECOMMENDATIONS </a></li>
-      </div>      
-      <br>
-      <div style="border: 2px solid #15151D; background-color: #15151D;  padding-top: 10px; padding-bottom: 10px; border-radius: 20px">
-        <a href="charts" style ="font-size: 12px; font-family: 'Verdana'; color: white; text-align: center; margin-left: 30px; color: #F2E019" >MUSIC DATA</a></li>
-        <li style="list-style-type: none; margin-left: 30px; padding-top: 20px; padding-bottom: 10px;"> <a href="#chart1" style ="font-size: 12px; margin-left: 30px; font-family: 'Verdana'; color: #AFAFAF"><i class="glyphicon glyphicon-th-list navbar-left"></i>History</a></li>
-        <li style="list-style-type: none; margin-left: 30px; padding-top: 10px; padding-bottom: 10px;"><a href="#chart1" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"><i class="glyphicon glyphicon-signal navbar-left"></i>My top music</a></li>
-        <li style="list-style-type: none; margin-left: 30px; padding-top: 10px; padding-bottom: 10px;"><a href="#PlaylistRecommendations" style ="font-size: 12px; font-family: 'Verdana'; margin-left: 30px; color: #AFAFAF"><i class="glyphicon glyphicon-asterisk navbar-left"></i>More</a></li>
-      </div>
-      <div id ="playerData" style="position: fixed; bottom: 0; width: 100%; margin-left: -16px;">
-        <p style="font-size: 16px; color: white; font-family: 'Verdana'; text-align: center;"> You might like </p>
-        
-      </div>
+<div class="col-sm-2 sideNavC">
+<br><br>
+	<div class="logoPadding">
+        <a class="navbar-brand" href="/"> 
+        	<img class="logoPositionC" src="static/img/DeezerText.png">
+        </a>
+     </div>
+     <div class="homeBorder">
+    	<li class="homePosition">
+      		<a class="homeTitle" href="main">HOME
+        		<i class="glyphicon glyphicon-home navbar-left"></i>
+      		</a>
+    	</li>
   	</div>
-
-  	<div class="col-sm-8 col-sm-offset-3" style="overflow: scroll;">
-  	  	<div class="container" id= "chart1" style="margin-top: 50px; width: 100%; background-color: white; border-radius: 20px; border: 1px solid #162737; padding-bottom: 10px">
-			<div class="row" style="margin-top: 10px;">
-	      		<div class="col-md-6"> 
-	        		<p style = "text-align:center; font-size: 18px; font-family: 'Verdana';  color: #162737;"> <b>Recent tracks </b></p>
-	        	</div>
-	        	<div class="col-md-6"> 
-	        		<p style = "text-align:center; font-size: 18px; font-family: 'Verdana';  color: #162737;"> <b>Recent favorites </b></p>
-	        	</div>
-	    	</div>
-	    	<div class="col-md-6">
-				<canvas id="userChart1"></canvas>
-			</div>
-	    	<div class="col-md-6">
-	    		<canvas id="userChart2"></canvas>
-	    	</div>
-
-
-		</div>
-	
-
-		<div class="container" id= "chart2" style="margin-top: 50px; width: 100%; background-color: white; border-radius: 20px; border: 1px solid #162737; padding-bottom: 10px">
-			<div class="row" style="margin-top: 10px;">
-	      		<div class="col-md-12"> 
-	        		<p style = "text-align:left; font-size: 18px; font-family: 'Verdana';  color: #162737;"> <b> Your most listened tracks </b></p>
-	        	</div>
-	    	</div>
-	    	<div class="col-md-12"> 
-				<canvas id="userChart3" style="width: 80%;"></canvas>
-			</div>
-
-		</div>
-
-		<div class="container" id= "chart3" style="margin-top: 50px; width: 100%; background-color: white; border-radius: 20px; border: 1px solid #162737; padding-bottom: 10px">
-
-		</div>
-
-
-
-
-
-		<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Notice</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to Log out?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" onclick="javascript:window.location.href='/'" data-dismiss="modal">Log me out</button>
-        <button type="button" class="btn btn-default"  data-dismiss="modal">Dismiss</button>
-
-      </div>
-    </div>
-  </div>
+    <br>
+    <div class="myrecBorderH">
+    	<li class="myrecItemsH" >
+      		<a class="myrecTitleH" href="/user">MY RECOMMENDATIONS
+      			<i class="glyphicon glyphicon-th-list navbar-left"></i> 
+      	 	</a>
+    	</li>
+  	</div>     
+    <br>
+    <div class="homeBorderH">
+        <a href="charts" class="homeTitleH" style="color: #F2E019" >MUSIC DATA
+        </a>
+    	<li class="homeItemsH"> 
+    		<a href="#chart1" class="homeItemsTextH">
+    			<i class="glyphicon glyphicon-th-list navbar-left"></i>History
+    		</a>
+    	</li>
+    	<li class="homeItemsH">
+    		<a href="#chart2" class="homeItemsTextH">
+    			<i class="glyphicon glyphicon-signal navbar-left"></i>My top music
+    		</a>
+    	</li>
+    	<li class="homeItemsH">
+    		<a href="#chart3" class="homeItemsTextH">
+    			<i class="glyphicon glyphicon-tasks navbar-left"></i>Music Analysis
+    		</a>
+    	</li>
+    	<li class="homeItemsH">
+    		<a href="#PlaylistRecommendations" class="homeItemsTextH">
+    			<i class="glyphicon glyphicon-asterisk navbar-left"></i>More
+    		</a>
+    	</li>
+     </div>
 </div>
 
+<!--******************** BODY OF WEBSITE ********************--> 
 
-  <script>
+<div class="col-sm-8 col-sm-offset-3" style="overflow: scroll;">
 
+<!--******************** HISTORY CHARTS ********************--> 
 
-var id;
-  var token;
+  	<div class="container chart1Style" id= "chart1">
+		<div class="row margin10">
+	      	<div class="col-md-6"> 
+	        	<p class="chart1Title"> <b>Recently played tracks </b></p>
+	        </div>
+		    <div class="col-md-6"> 
+		       	<p class="chart1Title"> <b>Recent favorited </b></p>
+		    </div>
+		</div>
+		<div class="row margin10">
+			<div class="col-md-6">
+				<canvas id="userChart1" class="chart1Size"></canvas>
+			</div>
+			<div class="col-md-6">
+			    <canvas id="userChart2" class="chart1Size"></canvas>
+			</div>
+		</div>
+		<div class="row margin10">
+			<p class="chart1Tip">Tip: Hover over the chart to view tracks </p>
+		</div>
+	</div>
 
+<!--******************** MY TOP MUSIC CHART ********************--> 
 
-function logout(){
-    DZ.logout();
-        }
+	<div class="container chart2Style" id= "chart2">
+		<div class="row margin10">
+      		<div class="col-md-12"> 
+        		<p class="chart2Title"> <b> Your most listened tracks </b></p>
+        	</div>
+    	</div>
+    	<div class="col-md-12"> 
+			<canvas id="userChart3" style="width: 80%;"></canvas>
+		</div>
+	</div>
 
-DZ.getLoginStatus(function(response){
-           id = response.userID;
-           token = response.authResponse.accessToken;
+<!--******************** TRACK ANALYSIS CHART ********************--> 
 
-var url = 'https://api.deezer.com/user/' + id +'/history&access_token='+ token;
-var url1 = 'https://api.deezer.com/user/' + id +'/charts&access_token='+ token;
+	<div class="container chart3Style" id= "chart3">
+		<div class="col-md-12"> 
+			<div class="row margin10">
+    			<p class="standardTitle"> <b>Track Analysis </b></p>
+  			</div>
+  		</div>
+  		<div class="row margin10">
+			<p class="chart1Tip">Tip: Click on a track to select / deselect</p>
+		</div>
+		<canvas id="userChart4" style="width: 75%;"></canvas>
+	</div>
+</div>
 
+<!--******************** MODAL WINDOW ********************--> 
 
-	function httpGet(url)
-		{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", url, false ); 
-    xmlHttp.send( null );
-    return JSON.parse(xmlHttp.response);
-		}
+<div id="myModal" class="modal fade" role="dialog">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+        			<h4 class="modal-title">Notice</h4>
+      		</div>
+      	<div class="modal-body">
+        	<p>Are you sure you want to Log out?</p>
+      	</div>
+      	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" onclick="javascript:window.location.href='/'" data-dismiss="modal">Log me out</button>
+        	<button type="button" class="btn btn-default"  data-dismiss="modal">Dismiss</button>
+      	</div>
+    	</div>
+  	</div>
+</div>
 
-var apiresponse = httpGet(url);
-var tracksresponse = httpGet(url1);
+<style>
 
-console.log(token);
+.margin10{
+	margin-top: 10px;
+	}
 
+.chart1Style {
+	margin-top: 50px;
+	width: 100%;
+	background-color: white;
+	border-radius: 20px;
+	border: 1px solid #162737;
+	padding-bottom: 10px
+}
 
+.chart1Title {
+	text-align:center;
+	font-size: 18px;
+	font-family: 'Verdana';
+	color: #162737;"
+}
 
-  	
-var ctx9 = document.getElementById('userChart1');
-var stackedBar = new Chart(ctx9, {
-    type: 'polarArea',
-    data: {
-   	labels: [apiresponse['data'][0]['title'],apiresponse['data'][1]['title'],apiresponse['data'][2]['title'],apiresponse['data'][3]['title'],apiresponse['data'][4]['title']],
-      datasets: [
-        {          data: [10,9.5,9,8.5,8],
-      backgroundColor: [
-            'rgb(239,144,123)',
-            'rgb(232,168,204)',
-            'rgb(228,225,122)',
-            'rgb(187,217,234)',
-            'rgb(200,200,200)',
-            ]}
-     	]},
-		options: {
-			responsive: true,
-	    	maintainAspectRatio: false,
-			legend: {
-	            display: false,
-	            data: false
-	            },
-	            scale: {
-	   				ticks: {
-	      				display: false
-	   					}
-					},
-	        	}
-   		});
-var ctx10 = document.getElementById('userChart2');
-var stackedBar = new Chart(ctx10, {
-    type: 'polarArea',
-    data: {
-   	labels: [tracksresponse['data'][0]['title'],tracksresponse['data'][1]['title'],tracksresponse['data'][2]['title'],tracksresponse['data'][3]['title'],tracksresponse['data'][4]['title']],
-      datasets: [
-        {          data: [8,8.5,9,9.5,10],
-      backgroundColor: [
-            'rgb(200,200,200)',
-            'rgb(187,217,234)',
-            'rgb(228,225,122)',
-            'rgb(232,168,204)',
-            'rgb(239,144,123)',
-            
-            ]}
-     	]},
-		options: {
-			responsive: true,
-	    	maintainAspectRatio: false,
-			legend: {
-	            display: false,
-	            data: false
-	            },
-	            scale: {
-	   				ticks: {
-	      				display: false
-	   					}
-					},
-	        	}
-   		});
+.chart1Tip {
+	text-align: center;
+}
 
+.chart1Size {
+	width: 40%
+}
 
+.chart2Style {
+	margin-top: 50px;
+	width: 100%;
+	background-color: white;
+	border-radius: 20px;
+	border: 1px solid #162737;
+	padding-bottom: 10px
+}
 
-var len = tracksresponse['data'].length;
+.chart2Title{
+	text-align:left;
+	font-size: 18px;
+	font-family: 'Verdana';
+	color: #162737;
+}
 
-var ctx11 = document.getElementById('userChart3');
-var stackedBar = new Chart(ctx11, {
-    type: 'bar',
-    data: {
-   	labels: [tracksresponse['data'][0]['title'],tracksresponse['data'][1]['title'],tracksresponse['data'][2]['title'],tracksresponse['data'][3]['title'],tracksresponse['data'][4]['title'],tracksresponse['data'][5]['title'],tracksresponse['data'][6]['title'],tracksresponse['data'][7]['title'],tracksresponse['data'][8]['title']],
-      datasets: [
-        {          data: [10,9.5,9,8.5,8,7.5,7,6.5,6,5.5,],
-      backgroundColor: [
-                'rgba(227,35,29, 0.9)',
-                'rgba(239,144,123, 0.9)',
-                'rgba(254,221,0, 0.9)',
-                'rgba(215,44,136, 0.9)',
-                'rgba(232,168,204, 0.9)',
-                'rgba(195,210,0, 0.9)',
-                'rgba(228,225,122, 0.9)',
-                'rgba(64,180,230, 0.9)',
-                'rgba(187,217,234, 0.9)',
-                'rgba(200,200,200, 0.9)',
-            ]}
-      ]},
-		options: {
-			 tooltips: {
-      			custom: function(tooltip) {
-        		if (!tooltip) return;
-        			tooltip.displayColors = false;
-      				},
-     			callbacks: {
-        			label: function(tooltipItem, data) {
-          			return tooltipItem.xLabel;
-        			},
-        			title: function(tooltipItem, data) {
-          			return;
-        			}
-      		}	
-    	},
-			responsive: true,
-    		maintainAspectRatio: false,
-			legend: {
-                display: false,
-                data: false
-            },
-        	scales: {
-          		xAxes: [{
-          			ticks : {
-                        max : 1,    
-                        min : 0
-                    },
-            		display: true,
-          				}],
-          		yAxes: [{
-            		display: false
-          				}],
-        			}
-      			}
-    })
-
-
-
-
-// DZ.api("/user/me/history", function(response){
-// 	for(var i = 1; i <9; i++){
-// 		document.getElementById("ListHis"+i).innerHTML += response.data[i].title;
-// 	}
-// })
-
-
-})
-  </script>
-
-
-
-
+.chart3Style{
+	margin-top: 50px;
+	width: 100%;
+	max-height: 500px;
+	background-color: white;
+	border-radius: 20px;
+	border: 1px solid #162737;
+	padding-bottom: 10px
+}
+</style>
 
 {% endblock %}

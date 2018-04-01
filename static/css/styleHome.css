@@ -1,0 +1,205 @@
+.navbarNavyH {
+  	background-color: #22222B;
+  	margin-top: 0px;
+}
+
+.navbarFontH{
+	font-size: 15px;
+	font-family: 'Verdana';
+	color: white;
+	text-align: center;
+	line-height: 40px;
+	vertical-align: middle;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+.logoPaddingH {
+	padding-bottom: 80px;
+}
+
+.logoPositionH {
+	height:40px;
+	width:200px;
+	margin-top: 20px;
+}
+
+.sideNavH {
+	background-color: #22222B;
+	margin-top: -120px;
+	height: 250%;
+	overflow: hidden;
+	position: fixed;
+}
+
+.homeBorderH {
+	border: 2px solid #15151D;
+	background-color: #15151D;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 18px;
+}
+
+.homeTitleH {
+	font-size: 12px;
+	font-family: 'Verdana';
+	color: white; text-align: center;
+	margin-left: 30px;
+	color: #E72D63;
+}
+
+.homeItemsH {
+	list-style-type: none;
+	margin-left: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.homeItemsTextH {
+	font-size: 12px;
+	font-family: 'Verdana';
+	margin-left: 30px;
+	color: #AFAFAF
+}
+
+.myrecBorderH {
+	border: 2px solid #15151D;
+	border-radius: 18px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+}
+
+.myrecTitleH {
+	font-size: 12px;
+	color: white;
+	font-family: 'Verdana';
+	text-align: center;
+	margin-left: 28px;
+	color: #02B5C8;
+}
+
+.myrecItemsH {
+	list-style-type: none;
+	margin-left: 30px;
+}
+
+.chartBorderH {
+	border: 2px solid #15151D;
+	border-radius: 18px;
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+
+.chartItemsH {
+	list-style-type: none;
+	margin-left: 30px;
+}
+
+.chartTitleH {
+	font-size: 12px;
+	color: white;
+	font-family: 'Verdana';
+	text-align: center;
+	margin-left: 28px;
+	color: #F2E019
+}
+
+.worldMapContainer {
+	width: 100%;
+	height: 550px;
+	background-color: white;
+	border-radius: 20px;
+	border: 1px solid #162737;
+	padding-bottom: 60px;
+}
+
+.worldMapTitle {
+	text-align:left;
+	font-size: 18px;
+	font-family: 'Verdana';
+	color: #162737;
+	margin-top: 10px;
+}
+
+.musicChartsContainer {
+	width: 100%;
+	background-color: white;
+	border-radius: 20px;
+	border: 1px solid #162737;
+	padding-bottom: 10px;
+	font-family: 'Verdana';
+}
+
+.musicChartsTitle {
+	text-align:left;
+	font-size: 18px;
+	color: #162737;
+	margin-top: 10px;
+}
+
+.chartjsPosition {
+	background-color:white;
+	max-height: 240px;
+}
+
+.textChart {
+	text-align:center;
+	font-family: 'Verdana';
+	font-size: 14px;
+}
+
+.koolchartPosition {
+	background-color:white;
+	 height:275px;
+}
+
+.d3ChartContainer {
+	width: 100%;
+	background-color: white;
+	border-radius: 20px;
+	border: 1px solid #162737;
+	padding-bottom: 10px;
+	font-family: 'Verdana';
+}
+
+.d3ChartTitle {
+	margin-top: 10px;
+}
+
+.d3ChartContainer {
+	text-align:left;
+	font-size: 18px;
+	color: #162737;
+}
+
+.d3Chart {
+	background-color:white;
+	height:480px;
+	border-right: 1px solid #162737;
+}
+
+.d3Input {
+	width: 40%;
+	height: 35px;
+	font-size: 18px;
+	border-radius:5px;
+}
+
+.d3Select {
+	width: 100%;
+	height: 35px;
+	font-size: 18px;
+	border-radius:5px;
+}
+
+.d3OptionText {
+	font-size: 16px;
+}
+
+.d3ChartText {
+	text-align:center;
+}
+

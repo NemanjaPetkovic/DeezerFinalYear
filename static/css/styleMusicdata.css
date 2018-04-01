@@ -1,0 +1,80 @@
+.navbarNavyC {
+	  	background-color: #22222B;
+  		margin-top: 0px;
+}
+
+.navbarFontC {
+		font-size: 15px;
+		font-family: 'Verdana';
+		text-align: center;
+		line-height: 40px;
+		vertical-align: middle;
+		color: white;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+.sideNavC {
+	background-color: #22222B;
+	margin-top: -120px;
+	height: 250%;
+	overflow: hidden;
+	position: fixed;
+}
+
+.logoPadding {
+	padding-bottom: 80px;
+}
+
+.logoPositionC {
+	height:40px;
+	width:200px;
+}
+
+.homeBorder {
+	border: 2px solid #15151D;
+	border-radius: 18px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	}
+
+.homePosition {
+	list-style-type: none;
+	margin-left: 30px;
+}
+
+.homeTitle {
+	font-size: 12px;
+	color: white;
+	font-family: 'Verdana';
+	text-align: left;
+	margin-left:28px;
+	color: #E72D63;
+	list-style-type: none;
+}
+
+.playerTextPosition {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	margin-left: -16px;
+}
+
+.playerTextStyle {
+	font-size: 16px;
+	color: white;
+	font-family: 'Verdana';
+	text-align: center;
+}
+
+.chart1Style {
+	margin-top: 50px;
+	width: 100%;
+	background-color: white;
+	border-radius: 20px;
+	border: 1px solid #162737;
+	padding-bottom: 10px
+}
+
